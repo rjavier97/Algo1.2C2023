@@ -46,12 +46,28 @@ algunoEs0PM 0 m = True
 algunoEs0PM n 0 = True
 algunoEs0PM _ _ = False
 
+-- e)
+ambosSon0 :: Float -> Float -> Bool
+ambosSon0 n m = (n==0 && m==0)
+
+ambosSon0PM :: Float -> Float -> Bool
+ambosSon0PM 0 0 = True
+ambosSon0PM _ _ = False
+
+-- f)
+mismoIntervalo :: Integer -> Integer -> Bool
+mismoIntervalo x y = ((x<=3)&&(y<=3)) || ((x>3)&&(x<=7))&&((y>3)&&(y<=7)) || ((x>7)&&(y>7))
+
 -- g)    
 sumaDistintos :: Integer -> Integer -> Integer -> Integer 
 sumaDistintos x y z | (x==y) && (y==z) = x
                     | (x==y) = x+z 
                     | (y==z) = x+y 
                     | otherwise = x+y+z     
+
+-- h)
+esMultiploDe :: Int -> Int -> Bool
+esMultiploDe x y = ((mod x y)==0)
 
 -- i) 
 digitoUnidades :: Integer -> Integer 
@@ -62,9 +78,15 @@ digitoUnidades1 :: Integer -> Integer
 digitoUnidades1 n | n<10 = n
                   | otherwise = digitoUnidades1 (n-10)  
 
+-- j)
 digitoDecenas :: Integer -> Integer 
 digitoDecenas n | n<10 = 0
-                | otherwise = digitoUnidades (div (n-(digitoUnidades n)) 10)      
+                | otherwise = digitoUnidades (div (n-(digitoUnidades n)) 10)     
+
+estanRelacionados :: Integer -> Integer -> Bool
+estanRelacionados x y | (x!=0)&&(y!=0)   
+
+--   a+bk=0  ->   bk=-a ->  k = -a/b
 
 -- Ejercicio 4
 --b)
