@@ -1,15 +1,14 @@
-
 doubleMe x = x + x
 
 -- Guia 3, Ejercicio 1
 -- a)
-f :: Integer -> Integer 
-f 1 = 8 
-f 4 = 131 
-f 16 = 16 
+f :: Integer -> Integer
+f 1 = 8
+f 4 = 131
+f 16 = 16
 
 -- b)
-g :: Integer -> Integer 
+g :: Integer -> Integer
 g 8 = 16
 g 16 = 4
 g 131 = 1
@@ -18,7 +17,7 @@ g 131 = 1
 h :: Integer -> Integer
 h n = f (g(n))
 
-k :: Integer -> Integer 
+k :: Integer -> Integer
 k n = g (f(n))
 
 -- Ejercicio 2
@@ -39,7 +38,7 @@ maximo3 x y z | (x>=y && x>=z) = x
 
 -- d)
 algunoEs0 :: Float -> Float -> Bool
-algunoEs0 n m = (n==0 || m==0)   
+algunoEs0 n m = (n==0 || m==0)
 
 algunoEs0PM :: Float -> Float -> Bool
 algunoEs0PM 0 m = True
@@ -59,42 +58,42 @@ mismoIntervalo :: Integer -> Integer -> Bool
 mismoIntervalo x y = ((x<=3)&&(y<=3)) || ((x>3)&&(x<=7))&&((y>3)&&(y<=7)) || ((x>7)&&(y>7))
 
 -- g)    
-sumaDistintos :: Integer -> Integer -> Integer -> Integer 
+sumaDistintos :: Integer -> Integer -> Integer -> Integer
 sumaDistintos x y z | (x==y) && (y==z) = x
-                    | (x==y) = x+z 
-                    | (y==z) = x+y 
-                    | otherwise = x+y+z     
+                    | (x==y) = x+z
+                    | (y==z) = x+y
+                    | otherwise = x+y+z
 
 -- h)
 esMultiploDe :: Int -> Int -> Bool
 esMultiploDe x y = ((mod x y)==0)
 
 -- i) 
-digitoUnidades :: Integer -> Integer 
-digitoUnidades n = mod n 10    
+digitoUnidades :: Integer -> Integer
+digitoUnidades n = mod n 10
 
 
-digitoUnidades1 :: Integer -> Integer 
+digitoUnidades1 :: Integer -> Integer
 digitoUnidades1 n | n<10 = n
-                  | otherwise = digitoUnidades1 (n-10)  
+                  | otherwise = digitoUnidades1 (n-10)
 
 -- j)
-digitoDecenas :: Integer -> Integer 
+digitoDecenas :: Integer -> Integer
 digitoDecenas n | n<10 = 0
-                | otherwise = digitoUnidades (div (n-(digitoUnidades n)) 10)     
+                | otherwise = digitoUnidades (div (n-(digitoUnidades n)) 10)
+
+{- Ejercicio 3
+a.a + a.b.k = 0  -> a + b.k = 0 (se puede dividir por a, ya que a nunca es cero) ->  bk=-a   ->   k = -a/b
+es decir, k es entero si a es divisible por b, y entonces su resto será 0
+es decir, mod a b = 0  -}
 
 estanRelacionados :: Integer -> Integer -> Bool
-estanRelacionados x y | (x!=0)&&(y!=0)   
-
---   a+bk=0  ->   bk=-a ->  k = -a/b
+estanRelacionados x y = (x/=0)&&(y/=0)&&(mod x y == 0)
 
 -- Ejercicio 4
 --b)
 todoMenor1 :: (Integer, Integer) -> (Integer, Integer) -> Bool
-todoMenor1 (a,b) (c,d) = (a<=c) && (b<=d)     
+todoMenor1 (a,b) (c,d) = (a<=c)&&(b<=d)
 
 todoMenor :: (Integer, Integer) -> (Integer, Integer) -> Bool
-todoMenor v w = (fst v)<=(fst w) && (snd v)<=(snd w)  
-
-
-
+todoMenor v w = ((fst v)<=(fst w))&&((snd v)<=(snd w))
