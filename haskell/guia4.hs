@@ -32,11 +32,23 @@ parteEntera n | (n<1) = 0
 parteEntera1 :: Float -> Integer
 parteEntera1 x | (0<=x && x<1) = 0 
                | (-1<=x) && (x<0) = -1
-               | x>1 = parteEntera (x-1) + 1 
-               | x < -1 = parteEntera(x+1) -1 
+               | x>=1 = parteEntera1 (x-1) + 1 
+               | x < -1 = parteEntera1 (x+1) -1 
 
 parteEntera2 :: Float -> Integer 
 parteEntera2 n | 0<=n && n<1 = 0 
-               | x>1 = parteEntera2 (n-1) +1
-               | otherwise = parteEntera2 (n+1) -1                               
+               | n>=1 = parteEntera2 (n-1) +1
+               | otherwise = parteEntera2 (n+1) -1                                   
 
+--Ejercicio 4-------------------
+{-
+contarPalabras :: [Char] -> Integer
+contarPalabras 
+
+--funciones auxiliares
+quitarEspInicialFinal :: [Char] -> [Char]
+quitarEspInicialFinal [] = []
+quitarEspInicialFinal x:xs | x==' ' && head(reverse xs)==' ' = tail xs 
+                           | x==' ' = xs
+                           | (head (reverse xs)) ==' ' = tail (x:xs)
+-}

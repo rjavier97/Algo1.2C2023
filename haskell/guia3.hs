@@ -76,13 +76,13 @@ digitoUnidades1 n | n<10 = n
                   | otherwise = digitoUnidades1 (n-10)               
 
 sacarUltimoDigito :: Integer -> Integer
-sacarUltimoDigito n = div (n-(digitoUnidades n)) 10
+sacarUltimoDigito n = div (n-(digitoUnidades n)) 10  --- tambien con poner = div n 10 , se elimina(o saca) el ultimo digito
                         
 -- j)
 digitoDecenas :: Integer -> Integer
 digitoDecenas n | n<10 = 0
-                | otherwise = digitoUnidades (sacarUltimoDigito n)
-
+                | otherwise = digitoUnidades (sacarUltimoDigito n) -- tambien con poner = (mod (div n 10) 10) alcanza
+                -- otherwise = mod (div n 10) 10
 {- Ejercicio 3------------------------------------------------
 a.a + a.b.k = 0  -> a + b.k = 0 (se puede dividir por a, ya que a nunca es cero) ->  bk=-a   ->   k = -a/b
 es decir, k es entero si a es divisible por b, y entonces su resto será 0
@@ -174,5 +174,46 @@ bisiesto3 n = (mod n 400 == 0) || ( (mod n 4 ==0)&&(mod n 100 /=0) ) -- otra ver
 {- Conclusion: 1) si un año es bisiesto entonces es divisible por 4
                2) si un año es divisible por 400 entonces es bisiesto -}
 
+--Ejercicio 7--------------------------------------------------
+distanciaManhattan :: (Float, Float, Float) -> (Float, Float, Float) -> Float
+distanciaManhattan (vx, vy, vz) (wx, wy, wz) = abs(vx-wx) + abs(vy-wy) + abs(vz-wz) 
+
+--Ejercicio 8--------------------------------------------------
+sumaUltimosDosDigitos :: Integer -> Integer
+sumaUltimosDosDigitos n = (mod n 10) + (mod (div n 10) 10)
+
+comparar :: Integer -> Integer -> Integer 
+comparar n m | (sumaUltimosDosDigitos n) < (sumaUltimosDosDigitos m) = 1
+             | (sumaUltimosDosDigitos n) > (sumaUltimosDosDigitos m) = -1
+             | otherwise = 0 
+
+--Ejercicio9---------------------------------------------------
+--A partir de las siguientes implementaciones en Haskell,describir en lenguaje natural que hacen y especificarlas semiformalmente.
+{- 
+--A tener en cuenta: alt+29= ↔ , alt+26= → , alt+27= ←, alt+142= Ž , otros simbolos: ℤ , ℝ , ∧ , ∨ , ¬ , ⇔, ∀, ∃, ∃! , ≠ , ≤ , ≥ , ∈
+a)
+f1 :: Float -> Float 
+f1 n | n==0 = 1
+     | otherwise = 0
+
+Lenguaje natural: a partir de cualquier numero real, determina si ese numero es 0 o no, si es 0 el programa devuelve 1, y si es cualquier
+otro numero devuelve 0. 
+Especificacion semiformal:
+problema esCero (n:R) : ℝ {                            |        problema esCero (n:R) : ℝ {                       
+    requiere: {True}                                   |             requiere: {True}
+    asegura: { (res=1 ↔ n es 0) }                      |             asegura: { (n=0 → res=1) ∧ (n≠0 → res=0) }
+    asegura: { (res=0 ↔ n no es igual a 0) }           |        }   
+}                                                      |
+-}
+
+{-
+b)
+f2 :: Float -> Float 
+f2 n | n == 1 = 15
+     | n == -1 = -15
+     
 
 
+
+
+-}
