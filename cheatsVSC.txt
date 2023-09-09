@@ -1,0 +1,7 @@
+1- Para abrir varios archivos sin que se cierre la pestaña actual, hacer doble click en el nombre del archivo para fijarlo
+2- Todos los comandos: Ctrl+Shift+P
+3- Para Buscar alguna palabra, Ctrl+F 
+4- Nueva terminal: Ctrl+Shift+ñ 
+
+--A tener en cuenta: alt+29= ↔ , alt+26= → , alt+27= ←, alt+142= Ž 
+--Otros simbolos: ℤ , ℝ , ∧ , ∨ , ¬ , ⇔, ∀, ∃, ∃! , ≠ , ≤ , ≥ , ∈ , funcionTecho: ⌈ ⌉ , funcionPiso: ⌊  ⌋
