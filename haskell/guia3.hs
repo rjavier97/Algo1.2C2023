@@ -111,14 +111,14 @@ mismoIntervalo x y = ((x<=3)&&(y<=3)) || ((x>3)&&(x<=7))&&((y>3)&&(y<=7)) || ((x
 Especificacion: 
 problema sumaDistintos (x:Z, y:Z, z:Z) : Z {                            
     requiere: { True }                                    
-    asegura: { (((x≠y)∧(x≠z)∧(y≠z)) → res=x+y+z) ∧ (((x=y)∧(y≠z)) → res=x+z) ∧ ((x≠y)∧(y==z) ) }                 
+    asegura: {( ((x≠y)∧(x≠z)∧(y≠z))→res=x+y+z) ∧ ( (((x=y)∧(y≠z))∨((x≠y)∧(y=z)))→res=x+z) ∧ ( ((x≠y)∧(x=z))→res=x+y) ∧ ( ((x=y)∧(y=z))→res=x)}                 
 }                                                      
 -}
-sumaDistintos :: Integer -> Integer -> Integer -> Integer
-sumaDistintos x y z | (x==y)&&(y==z) = x
-                    | (x==y)||(y==z) = x+z
-                    | (x==z) = x+y 
-                    | otherwise = x+y+z      --- Cuando hay algun numero repetido lo sumo una sola vez 
+sumaDistintos :: Integer -> Integer -> Integer -> Integer  --- Cuando hay algun numero repetido lo sumo una sola vez
+sumaDistintos x y z | (x==y)&&(y==z) = x     -- Caso por ej: 2 2 2 
+                    | (x==y)||(y==z) = x+z   -- Caso por ej: 1 2 2 ..ó.. 2 2 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                    | (x==z) = x+y           -- Caso por ej: 2 1 2 
+                    | otherwise = x+y+z      -- Caso por ej: 1 2 3                                                                                                                           
 
 -- h)
 esMultiploDe :: Int -> Int -> Bool
