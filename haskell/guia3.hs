@@ -111,14 +111,14 @@ mismoIntervalo x y = ((x<=3)&&(y<=3)) || ((x>3)&&(x<=7))&&((y>3)&&(y<=7)) || ((x
 Especificacion: 
 problema sumaDistintos (x:Z, y:Z, z:Z) : Z {                            
     requiere: { True }                                    
-    asegura: { ( ((x≠y)∧(x≠z)∧(y≠z)) → res=x+y+z) ∧ ((x=y)∧(x≠z)∧(y≠z)) → res=x+z ) ∨ ((x>7)∧(y>7)) ) }                 
+    asegura: { (((x≠y)∧(x≠z)∧(y≠z)) → res=x+y+z) ∧ (((x=y)∧(y≠z)) → res=x+z) ∧ ((x≠y)∧(y==z) ) }                 
 }                                                      
 -}
 sumaDistintos :: Integer -> Integer -> Integer -> Integer
-sumaDistintos x y z | (x==y) && (y==z) = x
-                    | (x==y) = x+z
-                    | (y==z) = x+y
-                    | otherwise = x+y+z      --- probar el programa para sumaDistintos 2 1 2 
+sumaDistintos x y z | (x==y)&&(y==z) = x
+                    | (x==y)||(y==z) = x+z
+                    | (x==z) = x+y 
+                    | otherwise = x+y+z      --- Cuando hay algun numero repetido lo sumo una sola vez 
 
 -- h)
 esMultiploDe :: Int -> Int -> Bool
