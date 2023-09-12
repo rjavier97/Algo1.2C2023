@@ -41,17 +41,17 @@ parteEntera2 n | 0<=n && n<1 = 0
                | otherwise = parteEntera2 (n+1) -1                                   
 
 --Ejercicio13
-sumaInt :: Integer -> Integer -> Integer -> Integer              ----- i^j   con i variando y con j fijo
-sumaInt n j i | n==i = 1
-              | otherwise = (sumaInt (n-1) j i) + (n^j)         
+sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
+sumaInt n i j | i==n = i^j                                ----- n es la base, i el limite inferior, j el exponente y limiteSup
+              | otherwise = (sumaInt (n-1) i j) + (n^j)         
 
-sumaExt :: Integer -> Integer -> Integer -> Integer             ----- i^m    con i fijo y con j variando
-sumaExt n m i | m==i = 1
-              | otherwise = (sumaExt n (m-1) i) + n^m       
+sumaExt :: Integer -> Integer -> Integer -> Integer       ----- i^m   con i fijo y con j variando
+sumaExt n i m | i==m = n^i                                ----- n es la base, i el limite inferior, m el exponente y limiteSup
+              | otherwise = (sumaExt n i (m-1)) + n^m       
 
-sumDoble :: Integer -> Integer -> Integer
-sumDoble n m  | n==0 = 0
-              |otherwise = (sumaInt (n-1) m 1) + sumaInt n m 1       
+sumaDoble :: Integer -> Integer -> Integer
+sumaDoble n m  | (n==0)||(m==0) = 0 
+               | otherwise = (sumaDoble (n-1) m) + (sumaExt n 1 m)
 
 
 --Ejercicio 4-------------------

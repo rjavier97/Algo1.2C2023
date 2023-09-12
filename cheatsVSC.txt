@@ -2,6 +2,8 @@
 2- Todos los comandos: Ctrl+Shift+P
 3- Para Buscar alguna palabra, Ctrl+F 
 4- Nueva terminal: Ctrl+Shift+ñ 
+5-Para comentar varias lineas de codigo: Seleccionar las lineas y apretar Ctrl+K+C
+6-Para descomentar varias lineas de codigo: Seleccionar las lineas y apretar Ctrl+K+U
 
 --A tener en cuenta: alt+29= ↔ , alt+26= → , alt+27= ←, alt+142= Ž 
 --Otros simbolos: ℤ , ℝ , ∧ , ∨ , ¬ , ⇔, ∀, ∃, ∃! , ≠ , ≤ , ≥ , ∈ , funcionTecho: ⌈ ⌉ , funcionPiso: ⌊  ⌋
