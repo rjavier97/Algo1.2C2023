@@ -27,7 +27,7 @@ fibonacci n | (n==0) = 0
 Conclusion: entre modulo  -}
 parteEntera :: Float -> Integer
 parteEntera n | (n<1) = 0
-              | otherwise = parteEntera (n-1) + 1 
+              | otherwise = parteEntera (n-1) + 1     -- contempla solo numeros positivos
 
 parteEntera1 :: Float -> Integer
 parteEntera1 x | (0<=x && x<1) = 0 
@@ -39,6 +39,20 @@ parteEntera2 :: Float -> Integer
 parteEntera2 n | 0<=n && n<1 = 0 
                | n>=1 = parteEntera2 (n-1) +1
                | otherwise = parteEntera2 (n+1) -1                                   
+
+--Ejercicio13
+sumaInt :: Integer -> Integer -> Integer -> Integer              ----- i^j   con i variando y con j fijo
+sumaInt n j i | n==i = 1
+              | otherwise = (sumaInt (n-1) j i) + (n^j)         
+
+sumaExt :: Integer -> Integer -> Integer -> Integer             ----- i^m    con i fijo y con j variando
+sumaExt n m i | m==i = 1
+              | otherwise = (sumaExt n (m-1) i) + n^m       
+
+sumDoble :: Integer -> Integer -> Integer
+sumDoble n m  | n==0 = 0
+              |otherwise = (sumaInt (n-1) m 1) + sumaInt n m 1       
+
 
 --Ejercicio 4-------------------
 {-
