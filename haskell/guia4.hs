@@ -38,7 +38,26 @@ parteEntera1 x | (0<=x && x<1) = 0
 parteEntera2 :: Float -> Integer 
 parteEntera2 n | 0<=n && n<1 = 0 
                | n>=1 = parteEntera2 (n-1) +1
-               | otherwise = parteEntera2 (n+1) -1                                   
+               | otherwise = parteEntera2 (n+1) -1    
+
+--Ejercicio3--------------------------------------------------------------------------------------------------------------------
+esDivisible :: Integer -> Integer -> Bool   
+esDivisible a b | (a<b) = False
+                | (a-b)==0 = True
+                | otherwise = esDivisible (a-b) b 
+
+--Ejercicio4--------------------------------------------------------------------------------------------------------------------
+esImpar :: Integer -> Bool
+esImpar n = (mod n 2) /= 0
+
+sumaImparesDesde :: Integer -> Integer -> Integer
+sumaImparesDesde n i | n<i = 0
+                     | n==1 = 1
+                     | esImpar i = i + sumaImparesDesde n i+1
+                     | otherwise = sumaImparesDesde n i+1
+
+
+-- sumaImpares :: Integer -> Integer                    
 
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
