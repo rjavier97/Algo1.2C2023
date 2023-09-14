@@ -140,7 +140,7 @@ sacarUltimoDigito n = div (n-(digitoUnidades n)) 10  --- tambien con poner = div
 digitoDecenas :: Integer -> Integer
 digitoDecenas n | n<10 = 0
                 | otherwise = digitoUnidades (sacarUltimoDigito n) -- tambien con poner = (mod (div n 10) 10) alcanza
-                -- otherwise = mod (div n 10) 10
+                -- otherwise = mod (div n 10) 10   -- es otra opcion para la ultima linea
 {- Ejercicio 3--------------------------------------------------------------------------------------------------------------------
 a.a + a.b.k = 0  -> a + b.k = 0 (se puede dividir por a, ya que a nunca es cero) ->  bk=-a   ->   k = -a/b
 es decir, k es entero si a es divisible por b, y entonces su resto será 0

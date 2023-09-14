@@ -43,21 +43,34 @@ parteEntera2 n | 0<=n && n<1 = 0
 --Ejercicio3--------------------------------------------------------------------------------------------------------------------
 esDivisible :: Integer -> Integer -> Bool   
 esDivisible a b | (a<b) = False
-                | (a-b)==0 = True
+                | (a-b)==0 = True                      -- el ejercicio pedia NO USAR mod ni div
                 | otherwise = esDivisible (a-b) b 
 
 --Ejercicio4--------------------------------------------------------------------------------------------------------------------
+sumaImpares :: Integer -> Integer
+sumaImpares n = sumaImparesDesde n 1 1 
+
+--FuncionesAuxiliares
 esImpar :: Integer -> Bool
 esImpar n = (mod n 2) /= 0
 
-sumaImparesDesde :: Integer -> Integer -> Integer
-sumaImparesDesde n i | n<i = 0
-                     | n==1 = 1
-                     | esImpar i = i + sumaImparesDesde n i+1
-                     | otherwise = sumaImparesDesde n i+1
+sumaImparesDesde :: Integer -> Integer -> Integer -> Integer
+sumaImparesDesde n i k | n<k = 0
+                       | n==1 = 1    
+                       | otherwise = i + sumaImparesDesde n (i+2) (k+1)         -- k = contador de vueltas                        
+    
+--Ejercicio5--------------------------------------------------------------------------------------------------------------------
+medioFact :: Integer -> Integer       -- Programa que dado n ∈ N calcula n!! = n(n−2)(n−4).....
+medioFact n | n==0 || n==1 = 1 
+            | otherwise = n*(medioFact (n-2))
 
+--Ejercicio6--------------------------------------------------------------------------------------------------------------------
+sumaDigitos :: Integer -> Integer
+sumaDigitos n | n<10 = n                                  --- con (mod n 10) tengo el digito de las unidades: 125→5
+              | otherwise = (mod n 10) + sumaDigitos (div n 10)    --- con (div n 10) saco el ultimo digito de un numero: 125→12
 
--- sumaImpares :: Integer -> Integer                    
+--Ejercicio7--------------------------------------------------------------------------------------------------------------------
+todosDigitosIguales :: Integer -> Bool
 
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
