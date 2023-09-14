@@ -70,7 +70,48 @@ sumaDigitos n | n<10 = n                                  --- con (mod n 10) ten
               | otherwise = (mod n 10) + sumaDigitos (div n 10)    --- con (div n 10) saco el ultimo digito de un numero: 125→12
 
 --Ejercicio7--------------------------------------------------------------------------------------------------------------------
-todosDigitosIguales :: Integer -> Bool
+todosDigitosIguales :: Integer -> Bool      --  determina si todos los dígitos de un numero natural son iguales
+todosDigitosIguales n | n<10 = True
+                      | otherwise = ((mod n 10)==(mod (div n 10) 10)) && (todosDigitosIguales (div n 10))           
+-- (mod (div n 10) 10) lo que hace es darme el DigitoDecenas, es decir, el anteultimo numero  
+
+--Ejercicio8--------------------------------------------------------------------------------------------------------------------
+iesimoDigito :: Integer -> Integer -> Integer    -- dado un n ∈ N≥0 y un i ∈ N menor o igual a la cantidad de dígitos de n,
+iesimoDigito n i = mod (div n (10^(cantDigitos(n) - i))) 10                       -- devuelve el i-ésimo dígito de n.
+
+iesimoDigito1 :: Integer -> Integer -> Integer
+iesimoDigito1 n i | (n>=0)&&(i>=1)&&(i<=cantDigitos(n)) = mod (div n (10^(cantDigitos(n) - i))) 10  
+                  | otherwise = undefined       -- Otra opcion usando el Requiere de la especificacion
+
+--funcion auxiliar cantDigitos
+cantDigitos :: Integer -> Integer
+cantDigitos n | n<10 = 1
+              | otherwise = 1 + cantDigitos (div n 10)
+
+--Ejercicio9--------------------------------------------------------------------------------------------------------------------
+esCapicua :: Integer -> Bool 
+esCapicua n = extremosIguales n 1
+
+-- Funcion auxiliar extremosIguales,  que me va comparando los extremos de un numero, empezando por el indice i 
+extremosIguales :: Integer -> Integer -> Bool
+extremosIguales n i | n<10 || (i>cantDigitos(n)) = True
+                    | otherwise = (mod n 10)==(iesimoDigito n i) && (extremosIguales (div n 10) (i+1))             
+
+--Ejercicio10--------------------------------------------------------------------------------------------------------------------
+--a) 
+f1 :: Integer -> Integer
+f1 0 = 1
+f1 n = 2^n + f1 (n-1) 
+
+--b)
+f2 :: Integer -> Float -> Float
+f2 n q | (n==0)||(q==0) = 0
+       | otherwise = q^n + f2 (n-1) q 
+
+--c)
+f3 :: Integer -> Float -> Float
+f3 n q | (n==0)||(q==0) = 0      -- Si elijo n=2 y q=3........ 3^1 + 3^2 + 3^3 + 3^4
+       | otherwise = q^(2*n) + f2 (2*n - 1) q    -- programa: 3^4 + 3^
 
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
