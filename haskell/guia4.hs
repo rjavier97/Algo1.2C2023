@@ -151,8 +151,13 @@ e :: Float
 e = eAprox 10 
 
 --Ejercicio12--------------------------------------------------------------------------------------------------------------------
-raizDe2Aprox :: Integer -> Float
+sucesionAn :: Integer -> Float
+sucesionAn n | n==1 = 2
+             | otherwise = 2 + (1 / sucesionAn (n-1))
 
+raizDe2Aprox :: Integer -> Float
+raizDe2Aprox n = (sucesionAn n) - 1              --- es lo mismo que escribir: 2-1 
+            
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
 sumaInt n i j | i==n = i^j                                ----- n es la base, i el limite inferior, j el exponente y limiteSup
