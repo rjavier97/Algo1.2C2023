@@ -98,20 +98,60 @@ extremosIguales n i | n<10 || (i>cantDigitos(n)) = True
                     | otherwise = (mod n 10)==(iesimoDigito n i) && (extremosIguales (div n 10) (i+1))             
 
 --Ejercicio10--------------------------------------------------------------------------------------------------------------------
+--Funcion Auxiliar f2Generico, a partir de esta funcion se puede resolver automaticamente a), b), c) y d)
+
+f2Generico :: Float -> Integer -> Integer -> Integer -> Float      ----- Funcion f2 generica, para cualquier q, n, i y j 
+f2Generico q n i j | (j<i)||(q==0) = 0                           --- donde q=base, n= valor que le da forma a i o j, como en f3
+                   | i==j = q^i                                 ---- donde i= desde donde va la sumatoria (limite inferior)
+                   | otherwise = (f2Generico q n i (j-1)) + q^j  ---- donde j= hasta donde va la sumatoria (limite superior)
+
 --a) 
-f1 :: Integer -> Integer
-f1 0 = 1
-f1 n = 2^n + f1 (n-1) 
+f1 :: Integer -> Integer                  -- Funcion f1 que pedia el ejercicio, usando f2Generico 
+f1 n = truncate (f2Generico 2 n 0 n)      -- y Truncate para transformar el resultado Float de f2Generico en Integer
+
+f11 :: Integer -> Integer                 
+f11 0 = 1                                 -- Otra opcion (esto habia pensado primero)
+f11 n = 2^n + f11 (n-1) 
 
 --b)
-f2 :: Integer -> Float -> Float
-f2 n q | (n==0)||(q==0) = 0
-       | otherwise = q^n + f2 (n-1) q 
+f2 :: Integer -> Float -> Float      -- funcion que pedia el ejercicio
+f2 n q = f2Generico q n 1 n 
+
+f2Aux :: Float -> Integer -> Integer -> Float
+f2Aux q i n | i==n = q^i                        --- primer intento de sumatoria q^i generica, sin variable j (limite sup)
+            | otherwise = (f2Aux q i (n-1)) + q^n   
 
 --c)
-f3 :: Integer -> Float -> Float
-f3 n q | (n==0)||(q==0) = 0      -- Si elijo n=2 y q=3........ 3^1 + 3^2 + 3^3 + 3^4
-       | otherwise = q^(2*n) + f2 (2*n - 1) q    -- programa: 3^4 + 3^
+f3 :: Integer -> Float -> Float     
+f3 n q = f2Generico q n 1 (2*n)  
+
+{- Otra forma de pensarlo
+Sumatoria q^i con i=1 hasta j=2n  ←-|-→ Sumatoria q^(i+n) con i=1-n hasta j=n ←-|-→ 
+Sumatoria (q^i)*(q^n) con i=1-n hasta j=n ←-|-→ (q^n)* Sumatoria q^i con i=1-n hasta j=n
+-}                                       
+
+--d)
+f4 :: Integer -> Float -> Float 
+f4 n q = f2Generico q n n (2*n)      -- el 3º parametro representa a i, el 4º parametro representa a j
+
+--Ejercicio11--------------------------------------------------------------------------------------------------------------------
+--a)
+--Funcion Auxiliar factorial
+factorial :: Float -> Float
+factorial n | n==0 = 1
+            | otherwise = n*factorial(n-1)
+
+-- fromIntegral :: Int -> Float      funcion predefinida en el Preludio de Haskell
+eAprox :: Integer -> Float
+eAprox n | n==0 = 1
+         | otherwise = (1 / factorial(fromIntegral n)) + eAprox(n-1)  
+
+--b)
+e :: Float
+e = eAprox 10 
+
+--Ejercicio12--------------------------------------------------------------------------------------------------------------------
+raizDe2Aprox :: Integer -> Float
 
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
