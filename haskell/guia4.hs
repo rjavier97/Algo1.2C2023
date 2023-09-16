@@ -156,7 +156,7 @@ sucesionAn n | n==1 = 2
              | otherwise = 2 + (1 / sucesionAn (n-1))
 
 raizDe2Aprox :: Integer -> Float
-raizDe2Aprox n = (sucesionAn n) - 1              --- es lo mismo que escribir: 2-1 
+raizDe2Aprox n = (sucesionAn n) - 1        
             
 --Ejercicio13
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
