@@ -55,10 +55,11 @@ esImpar :: Integer -> Bool
 esImpar n = (mod n 2) /= 0
 
 sumaImparesDesde :: Integer -> Integer -> Integer -> Integer
-sumaImparesDesde n i k | n<k = 0
-                       | n==1 = 1    
+sumaImparesDesde n i k | n<k = 0    -- es 0 porque quiere decir que ya conté mas de los primeros n numeros impares
+                       | n==1 = 1   -- es decir, voy a contar hasta n==k, una vez que me paso (n<k),dejo de contar,por eso vale 0 
                        | otherwise = i + sumaImparesDesde n (i+2) (k+1)         -- k = contador de vueltas                        
-    
+-- la linea n==1 = 1, si se elimina no modifica el programa, ya que se contempla en el otherwise
+
 --Ejercicio5--------------------------------------------------------------------------------------------------------------------
 medioFact :: Integer -> Integer       -- Programa que dado n ∈ N calcula n!! = n(n−2)(n−4).....
 medioFact n | n==0 || n==1 = 1 
@@ -100,14 +101,14 @@ extremosIguales n i | n<10 || (i>cantDigitos(n)) = True
 --Ejercicio10--------------------------------------------------------------------------------------------------------------------
 --Funcion Auxiliar f2Generico, a partir de esta funcion se puede resolver automaticamente a), b), c) y d)
 
-f2Generico :: Float -> Integer -> Integer -> Integer -> Float      ----- Funcion f2 generica, para cualquier q, n, i y j 
-f2Generico q n i j | (j<i)||(q==0) = 0                           --- donde q=base, n= valor que le da forma a i o j, como en f3
-                   | i==j = q^i                                 ---- donde i= desde donde va la sumatoria (limite inferior)
-                   | otherwise = (f2Generico q n i (j-1)) + q^j  ---- donde j= hasta donde va la sumatoria (limite superior)
-
+f2Generico :: Float -> Integer -> Integer -> Float      ----- Funcion f2 generica, para cualquier q, i y j 
+f2Generico q i j | (j<i)||(q==0) = 0                         ---- donde q=base,                            
+                 | otherwise = (f2Generico q i (j-1)) + q^j  ---- donde i= desde donde va la sumatoria (limite inferior)
+                                                             ---- donde j= hasta donde va la sumatoria (limite superior)
+                                                             ---- i y j pueden depender de n, como en f3 y f4
 --a) 
 f1 :: Integer -> Integer                  -- Funcion f1 que pedia el ejercicio, usando f2Generico 
-f1 n = truncate (f2Generico 2 n 0 n)      -- y Truncate para transformar el resultado Float de f2Generico en Integer
+f1 n = truncate (f2Generico 2 0 n)      -- y Truncate para transformar el resultado Float de f2Generico en Integer
 
 f11 :: Integer -> Integer                 
 f11 0 = 1                                 -- Otra opcion (esto habia pensado primero)
@@ -115,7 +116,7 @@ f11 n = 2^n + f11 (n-1)
 
 --b)
 f2 :: Integer -> Float -> Float      -- funcion que pedia el ejercicio
-f2 n q = f2Generico q n 1 n 
+f2 n q = f2Generico q 1 n 
 
 f2Aux :: Float -> Integer -> Integer -> Float
 f2Aux q i n | i==n = q^i                        --- primer intento de sumatoria q^i generica, sin variable j (limite sup)
@@ -123,7 +124,7 @@ f2Aux q i n | i==n = q^i                        --- primer intento de sumatoria 
 
 --c)
 f3 :: Integer -> Float -> Float     
-f3 n q = f2Generico q n 1 (2*n)  
+f3 n q = f2Generico q 1 (2*n)  
 
 {- Otra forma de pensarlo
 Sumatoria q^i con i=1 hasta j=2n  ←-|-→ Sumatoria q^(i+n) con i=1-n hasta j=n ←-|-→ 
@@ -132,7 +133,7 @@ Sumatoria (q^i)*(q^n) con i=1-n hasta j=n ←-|-→ (q^n)* Sumatoria q^i con i=1
 
 --d)
 f4 :: Integer -> Float -> Float 
-f4 n q = f2Generico q n n (2*n)      -- el 3º parametro representa a i, el 4º parametro representa a j
+f4 n q = f2Generico q n (2*n)      -- el 2º parametro representa a i, el 3º parametro representa a j
 
 --Ejercicio11--------------------------------------------------------------------------------------------------------------------
 --a)
@@ -158,7 +159,7 @@ sucesionAn n | n==1 = 2
 raizDe2Aprox :: Integer -> Float
 raizDe2Aprox n = (sucesionAn n) - 1        
             
---Ejercicio13
+--Ejercicio13--------------------------------------------------------------------------------------------------------------------
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
 sumaInt n i j | i==n = i^j                                ----- n es la base, i el limite inferior, j el exponente y limiteSup
               | otherwise = (sumaInt (n-1) i j) + (n^j)         
@@ -171,6 +172,23 @@ sumaDoble :: Integer -> Integer -> Integer
 sumaDoble n m  | (n==0)||(m==0) = 0 
                | otherwise = (sumaDoble (n-1) m) + (sumaExt n 1 m)
 
+--Ejercicio14--------------------------------------------------------------------------------------------------------------------
+sumaPotencias :: Integer -> Integer -> Integer -> Integer
+sumaPotencias q n m | (n==0) = 0 
+                    | otherwise = (sumaPotenciasAux q n 1 m) + (sumaPotencias q (n-1) m)
+
+sumaPotenciasAux :: Integer -> Integer -> Integer -> Integer -> Integer     -- Sumatoria q^(k+i) , con q y k fijo,   
+sumaPotenciasAux q k i j | (j<i)||(q==0) = 0                -- i= limite inferior, j=limite superior (i,j variando)                                                            -
+                         | otherwise = q^(k+j) + (sumaPotenciasAux q k i (j-1))   
+
+--Ejercicio15--------------------------------------------------------------------------------------------------------------------
+sumaRacionales :: Integer -> Integer -> Float
+sumaRacionales n m | n==0 = 0 
+                   | otherwise = (sumaRacionalesAux n 1 m) + sumaRacionales (n-1) m  
+
+sumaRacionalesAux :: Integer -> Integer -> Integer -> Float
+sumaRacionalesAux p i j | j<i = 0 
+                        | otherwise = ((fromIntegral p)/(fromIntegral j)) + sumaRacionalesAux p i (j-1)
 
 --Ejercicio 4-------------------
 {-
@@ -184,3 +202,62 @@ quitarEspInicialFinal x:xs | x==' ' && head(reverse xs)==' ' = tail xs
                            | x==' ' = xs
                            | (head (reverse xs)) ==' ' = tail (x:xs)
 -}
+--Ejercicio16--------------------------------------------------------------------------------------------------------------------
+--a)
+
+
+--Ejercicio17--------------------------------------------------------------------------------------------------------------------
+esFibonacciAux :: Integer -> Integer -> Bool
+esFibonacciAux n i | n<fibonacci(i) = False
+                   | (n == fibonacci(i)) = True
+                   | otherwise = esFibonacciAux n (i+1)
+                
+esFibonacci :: Integer -> Bool        
+esFibonacci n = esFibonacciAux n 0     
+
+--Ejercicio18: Use 6 funcionesAuxiliares-----------------------------------------------------------------------------------------
+
+{-Estrategia: hacer una funcion que vaya viendo el iesimo digito par de un numero n cualquiera  
+luego comparar cada iesimo numero par, y ver si es mas grande que el otro o no , por ultimo, devolver el mas grande iteradamente -}
+mayorDigitoPar :: Integer -> Integer
+mayorDigitoPar n = mayorDigitoParDesde n 1 
+
+mayorDigitoParDesde :: Integer -> Integer -> Integer            --- 1234567
+mayorDigitoParDesde n i | i>cantDigitos n = -1  
+                        | otherwise = esMayor (iesimoPar n i) (mayorDigitoParDesde n (i+1))
+
+iesimoPar :: Integer -> Integer -> Integer 
+iesimoPar n i = iesimoParAux n 1 1 i 
+
+iesimoParAux :: Integer -> Integer -> Integer -> Integer -> Integer                       -- n: numero cualquiera
+iesimoParAux n k i j | i>cantDigitos n = -1                                              -- k acumulador de digitos pares
+                     | ( mod (iesimoDigito n i) 2 == 0)&&(k==j) = iesimoDigito n i     -- i: indice de posicion del digito que se recorre
+                     | ( mod (iesimoDigito n i) 2 == 0) = iesimoParAux n (k+1) (i+1) j   -- j: iesimo digito par de un numero
+                     | otherwise = iesimoParAux n k (i+1) j 
+-- Por ejemplo: iesimoParAux 1234 1 1 2 = 4 
+-- Significa: Del numero 1234, dame el segundo digito que sea par. El 4º parametro j (2), es el j-esimoDigitoPar de un numero 
+
+esMayor :: Integer -> Integer -> Integer
+esMayor n m | n>=m = n 
+            | otherwise = m 
+
+--Ejercicio18: Otra forma de resolverlo sin usar funcionesAuxiliares--------------------------------------------------------------
+mayorDigitoPar1 :: Integer -> Integer 
+mayorDigitoPar1 n | (n<10)&&(mod n 2 == 0) = n 
+                  | (n<10) = -1
+                  | (mod n 10 == 8)||(mayorDigitoPar1 (div n 10) ==8) = 8  
+                  | (mod n 10 == 6)||(mayorDigitoPar1 (div n 10) ==6) = 6
+                  | (mod n 10 == 4)||(mayorDigitoPar1 (div n 10) ==4) = 4
+                  | (mod n 10 == 2)||(mayorDigitoPar1 (div n 10) ==2) = 2
+                  | (mod n 10 == 0)||(mayorDigitoPar1 (div n 10) ==0) = 0
+                  | otherwise = -1 
+
+-- Otra forma de hacerlo, usando solo una funcionAuxiliar. Es misma idea de mayorDigitoPar1 pero mas corto, sin tantas guardas 
+-- y menor tiempo en devolver resultado. 
+mayorDigitoPar11 :: Integer -> Integer
+mayorDigitoPar11 n = mayorDigitoPar11Aux n 8 
+
+mayorDigitoPar11Aux :: Integer -> Integer -> Integer
+mayorDigitoPar11Aux n i | (n==0)||(i<0) = -1               
+                        | (mod n 10 == i)||(mayorDigitoPar11Aux (div n 10) i ==i) = i
+                        | otherwise = mayorDigitoPar11Aux n (i-2)                   
