@@ -161,10 +161,10 @@ raizDe2Aprox n = (sucesionAn n) - 1
             
 --Ejercicio13--------------------------------------------------------------------------------------------------------------------
 sumaInt :: Integer -> Integer -> Integer -> Integer       ----- i^j   con i variando y con j fijo
-sumaInt n i j | i==n = i^j                                ----- n es la base, i el limite inferior, j el exponente y limiteSup
+sumaInt n i j | i==n = i^j                                ----- n es la base y el limiteSup, i el limite inferior, j el exponente
               | otherwise = (sumaInt (n-1) i j) + (n^j)         
 
-sumaExt :: Integer -> Integer -> Integer -> Integer       ----- i^m   con i fijo y con j variando
+sumaExt :: Integer -> Integer -> Integer -> Integer       ----- i^m   con i fijo y con m variando
 sumaExt n i m | i==m = n^i                                ----- n es la base, i el limite inferior, m el exponente y limiteSup
               | otherwise = (sumaExt n i (m-1)) + n^m       
 
@@ -204,7 +204,39 @@ quitarEspInicialFinal x:xs | x==' ' && head(reverse xs)==' ' = tail xs
 -}
 --Ejercicio16--------------------------------------------------------------------------------------------------------------------
 --a)
+menorDivisor :: Integer ->Integer
+menorDivisor n = menorDivisorDesde n 2
 
+menorDivisorDesde :: Integer -> Integer -> Integer
+menorDivisorDesde n i | (n==1) = 1
+                      | (mod n i == 0) = i
+                      | otherwise = menorDivisorDesde n (i+1)  
+  
+--b)
+esPrimo :: Integer -> Bool
+esPrimo n = (menorDivisor n)==n 
+
+--c)
+sonCoprimos :: Integer -> Integer -> Bool                    -- si ambos numeros no tienen divisores en comun mayores estrictos que 1 
+sonCoprimos n m | n==1||m==1 = True
+                | otherwise = sonCoprimosDesde n m 2 
+
+sonCoprimosDesde :: Integer -> Integer -> Integer ->  Bool
+sonCoprimosDesde n m i | i>(esMenor n m) = True
+                       | otherwise = (mod (esMayor n m) (menorDivisorDesde (esMenor n m) i) /= 0)&&(sonCoprimosDesde n m (i+1) ) 
+
+esMenor :: Integer -> Integer -> Integer
+esMenor n m | n<=m = n 
+            | otherwise = m 
+
+--d)
+nEsimoPrimo :: Integer -> Integer 
+nEsimoPrimo n = nEsimoPrimoDesde n 2 1 
+
+nEsimoPrimoDesde :: Integer -> Integer -> Integer -> Integer          -- n: nEsimoPrimo 
+nEsimoPrimoDesde n i k | (n==k)&&(esPrimo i) = i                      -- i: numero que voy sumando de a 1 para ver si esPrimo o no
+                       | esPrimo i = nEsimoPrimoDesde n (i+1) (k+1)   -- k: contador de numeros primos 
+                       | otherwise = nEsimoPrimoDesde n (i+1) k  
 
 --Ejercicio17--------------------------------------------------------------------------------------------------------------------
 esFibonacciAux :: Integer -> Integer -> Bool
@@ -220,7 +252,7 @@ esFibonacci n = esFibonacciAux n 0
 {-Estrategia: hacer una funcion que vaya viendo el iesimo digito par de un numero n cualquiera  
 luego comparar cada iesimo numero par, y ver si es mas grande que el otro o no , por ultimo, devolver el mas grande iteradamente -}
 mayorDigitoPar :: Integer -> Integer
-mayorDigitoPar n = mayorDigitoParDesde n 1 
+mayorDigitoPar n = mayorDigitoParDesde n 1  
 
 mayorDigitoParDesde :: Integer -> Integer -> Integer            --- 1234567
 mayorDigitoParDesde n i | i>cantDigitos n = -1  
@@ -260,4 +292,27 @@ mayorDigitoPar11 n = mayorDigitoPar11Aux n 8
 mayorDigitoPar11Aux :: Integer -> Integer -> Integer
 mayorDigitoPar11Aux n i | (n==0)||(i<0) = -1               
                         | (mod n 10 == i)||(mayorDigitoPar11Aux (div n 10) i ==i) = i
-                        | otherwise = mayorDigitoPar11Aux n (i-2)                   
+                        | otherwise = mayorDigitoPar11Aux n (i-2)     
+
+--Ejercicio19--------------------------------------------------------------------------------------------------------------------
+esSumaInicialDePrimos :: Integer -> Bool
+esSumaInicialDePrimos n = esSumaInicialDePrimosDesde n 1 
+
+--Funciones auxiliares---------------------
+esSumaInicialDePrimosDesde :: Integer -> Integer -> Bool
+esSumaInicialDePrimosDesde n i | (sumaInicialDeNPrimos i > n) = False 
+                               | otherwise = (sumaInicialDeNPrimos i == n) || esSumaInicialDePrimosDesde n (i+1)  
+
+sumaInicialDeNPrimos :: Integer -> Integer
+sumaInicialDeNPrimos n = sumaInicialDeNPrimosDesde n 1   
+
+sumaInicialDeNPrimosDesde :: Integer -> Integer -> Integer
+sumaInicialDeNPrimosDesde n i | i>n = 0 
+                              | otherwise = (nEsimoPrimo i) + sumaInicialDeNPrimosDesde n (i+1) 
+
+
+
+
+
+
+
