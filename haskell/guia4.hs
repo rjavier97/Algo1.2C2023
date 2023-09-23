@@ -309,10 +309,21 @@ sumaInicialDeNPrimos n = sumaInicialDeNPrimosDesde n 1
 sumaInicialDeNPrimosDesde :: Integer -> Integer -> Integer
 sumaInicialDeNPrimosDesde n i | i>n = 0 
                               | otherwise = (nEsimoPrimo i) + sumaInicialDeNPrimosDesde n (i+1) 
+                            
+--Ejercicio21--------------------------------------------------------------------------------------------------------------------
+pitagoras :: Integer -> Integer -> Integer -> Integer 
+pitagoras m n r = pitagorasAux m n r 0 0
 
-
-
-
-
-
-
+pitagorasAux :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer 
+pitagorasAux m n r q k | ((m<r)&&(n<r)) && (q>mayor) = k    -- caso donde m y n sean mas chicos que r                  
+                       | (m<r)&&(n<r)&&(q<= mayor)&&( menor <= cateto ) = pitagorasAux m n r (q+1) (k+(menor +1))   -- caso donde m y n sean mas chicos que r
+                       | (m<r)&&(n<r)&&(q<= mayor)&&( menor > cateto) = pitagorasAux m n r (q+1) (k+(cateto +1))  -- caso donde m y n sean mas chicos que r
+                       | ((m>=r)||(n>=r)) && (((q^2)>(r^2))||(q>menor)) = k           -- caso donde m o n sean mayores/iguales que r
+                       | otherwise = pitagorasAux m n r (q+1) (k+ (cateto +1))     -- caso donde m o n sean mayores/iguales que r
+                         where cateto = truncate (sqrt(fromIntegral(r^2 - q^2)))   
+                               menor = esMenor m n   
+                               mayor = esMayor m n                                                   
+-- m y n son los catetos de un triangulo 
+-- r es la hipotenusa
+-- Q  0≤ Q ≤ mayor              , mayor = esMayor m n 
+-- k contador de pares (p,q)              
