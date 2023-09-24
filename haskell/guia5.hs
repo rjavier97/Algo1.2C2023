@@ -33,7 +33,11 @@ principio (x:xs) | (longitud (x:xs) == 1) = []        -- programa que devuelve u
 
 principio1 :: (Eq t) => [t] -> [t]                       
 principio1 (x:xs) | (longitud (x:xs) == 1) = []       -- programa que devuelve una lista sin el ultimo elemento, sin usar concat
-                 | otherwise = x:principio1(xs)                 
+                  | otherwise = x:principio1(xs)    
+
+principio11 :: Eq t => [t] -> [t]
+principio11 (x:xs) | (x:xs) == (x:[]) = []
+                   | otherwise = [x] ++ principio11 (xs)                               
 
 --d)       Se puede usar la funcion "reverse", que viene predefinida  
 reverso :: (Eq t) => [t] -> [t]                       -- programa que me devuelve una lista invertida
@@ -54,5 +58,3 @@ pertenece e (x:xs) = (e==x) || pertenece e xs
 quitarTodos :: (Eq t ) => t -> [t] -> [t]
 quitarTodos x [y] | x==y = []
 quitarTodos x (y:ys) = ys++quitarTodos x (tail ys)
-
-
