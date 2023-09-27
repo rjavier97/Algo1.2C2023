@@ -166,6 +166,7 @@ multiplosDeN n xs = multiplosDeNAux n xs []
 multiplosDeNAux :: Integer -> [Integer] -> [Integer] -> [Integer]
 multiplosDeNAux n [] a = a
 multiplosDeNAux n (x:xs) a | (mod x n)==0 = multiplosDeNAux n xs (a++[x])
+                           | otherwise = multiplosDeNAux n xs a 
 
 --i)
 ordenar :: [Integer] -> [Integer]
@@ -179,4 +180,69 @@ ordenarAux xs a = ordenarAux (quitar (minimum xs) xs) (a++[minimum xs])
 --Ejemplo: ordenar [2,1] [] -> ordenar [2] [1] -> ordenar [] [1,2] -> [1,2] 
 
 --Ejercicio4--------------------------------------------------------------------------------------------------------------------
+--a)
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos xs = sacarBlancosRepetidosAux xs []
+
+sacarBlancosRepetidosAux :: [Char] -> [Char] -> [Char]
+sacarBlancosRepetidosAux [] a = a 
+sacarBlancosRepetidosAux (x:[]) a = a++[x]          -- [' ','a','b',' ',' ','c']
+sacarBlancosRepetidosAux (x:xs) a | (x==(head xs))&&(x==' ') = sacarBlancosRepetidosAux xs a
+                                  | otherwise = sacarBlancosRepetidosAux xs (a++[x])
+
+sinBlancosRepetidosNiExtremos :: [Char] -> [Char] 
+sinBlancosRepetidosNiExtremos [] = []
+sinBlancosRepetidosNiExtremos (x:xs) | (x==' ')&&((ultimo (sacarBlancosRepetidos (x:xs)))==' ')= sacarBlancosRepetidos (tail (principio (sacarBlancosRepetidos xs)))
+                                     | (x==' ')= sacarBlancosRepetidos xs
+                                     | otherwise = principio (sacarBlancosRepetidos (x:xs))                                
+
+--b)
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 0 
+contarPalabras (x:xs) | (x==' ') = contarPalabras xs 
+                      | otherwise = contarPalabrasAux (x:xs) 
+
+contarPalabrasAux :: [Char] -> Integer
+contarPalabrasAux [] = 0
+contarPalabrasAux (x:[]) = 1
+contarPalabrasAux xs | (head (sacarBlancosRepetidos xs))==' ' = 1+ contarPalabrasAux (tail (sacarBlancosRepetidos xs))
+                     | otherwise = contarPalabrasAux (tail (sacarBlancosRepetidos xs))                              
+ 
+--c) 
+-- palabrasAux [] a k = [a]
+-- palabrasAux (x:xs) a | (cabezaListaPalabras /=' ') = palabrasAux (tail sinBlancosRepetidosNiExtremos) (a++[cabezaListaPalabras]) (k++(a++[cabezaListaPalabras]))
+--                      | otherwise = palabrasAux (tail sinBlancosRepetidosNiExtremos) [] k 
+
+
+-- where cabezaListaPalabras = head (sinBlancosRepetidosNiExtremos (x:xs))
+--       sinBlancosRepetidosNiExtremos = sinBlancosRepetidosNiExtremos (x:xs)
+
+primerPalabra :: [Char] -> [Char]
+primerPalabra [] = []
+primerPalabra [' '] = []
+primerPalabra [x] = [x]
+primerPalabra (x:' ':xs) = [x] 
+primerPalabra (x:y:xs) = [x] ++ primerPalabra (y:xs)
+
+
+
+
+
+-- clubXarqXGoles :: [(String,String)] -> [Integer] -> [((String,String),Integer)]
+-- clubXarqXGoles [] [] = []
+-- clubXarqXGoles ((club,arq):xs) (y:ys) = [((club,arq),y)] ++ clubXarqXGoles xs ys 
+
+
+-- vallaMenosInvicta :: [(String,String)] -> [Integer] -> String
+-- vallaMenosInvicta ((club,arq):xs) (y:ys) = menosGoles (clubXarqXGoles ((club,arq):xs) (y:ys))
+
+-- menosGoles :: [((String,String),Integer)] -> Integer
+-- menosGoles (((club,arq),gol):[]) = gol
+-- menosGoles (((club,arq),gol):xs) | gol < menosGoles xs = gol
+--                                  | otherwise = menosGoles xs 
+
+-- hallarArquero :: [((String,String),Integer)] -> [((String,String),Integer)]   
+-- hallarArquero (((club,arq),gol):xs) | (menosGoles (((club,arq),gol):xs) ) == gol = [((club,arq),gol)]
+--                                     | otherwise 
+
 
