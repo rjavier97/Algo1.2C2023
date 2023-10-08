@@ -85,6 +85,31 @@ def es_bisiesto(año: int)->bool:
 
 # Pregunta de clase: ejecucion simbolica (revisar en teorica)
 # Ejercicio4-------------------------------------------------------------------------------------------------------------------
+def peso_pino(altura: float)->float:
+    res: float
+    if altura < 3 :
+        res = altura * 300 
+    else : 
+        res = altura*200 + 300
+    
+    return res 
+
+def es_peso_util(peso: float)->bool:
+    res: bool = (peso >= 400) and (peso <= 1000) 
+    return res 
+
+def sirve_pino(altura: float)->bool:  #Un pino que pesa entre 400kg y 1000kg, es un pino que mide entre (4/3)m y 3,5m
+    res: bool = (altura >= 4/3) and (altura <= 3,5)
+    return res 
+
+def sirve_pinoComp(altura: float)->bool:
+    return es_peso_util(peso_pino(altura))
+
+ 
+    
+
+
+
 
 
     
