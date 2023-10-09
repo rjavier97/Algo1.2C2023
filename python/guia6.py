@@ -103,7 +103,7 @@ def sirve_pinoComp(altura: float)->bool:
 
 # Ejercicio5-------------------------------------------------------------------------------------------------------------------
 # 5.1)-----------------------------------------------------------
-def devolver_el_doble_si_es_par(numero)->int:
+def el_doble_si_es_par(numero)->int:
     res: int 
     if numero % 2 == 0 :
         res = numero*2
@@ -112,8 +112,27 @@ def devolver_el_doble_si_es_par(numero)->int:
     return res 
 
 # 5.2)-----------------------------------------------------------
+def par_sino_el_que_sigue(num: int)->int:
+    res: int
+    if num % 2 == 0 :
+        res = num
+    else : 
+        res = num + 1 
+    return res 
 
+def par_sino_el_que_sigue1(num: int)->int:
+    res: int
+    if num % 2 == 0 :
+        res = num
+    if num % 2 != 0 :
+        res = num + 1 
+    return res 
 
+def par_sino_el_que_sigue2(num: int)->int:
+    res: int = num + 1     # Asumo que el numero es impar, 
+    if num % 2 == 0 :      # Si el numero ingresado es par, entonces que me devuelva ese numero par
+        res = num 
+    return res 
 
 
 
