@@ -134,8 +134,8 @@ def par_sino_el_que_sigue2(num: int)->int:
         res = num 
     return res 
 
-
-
+# 5.3)-----------------------------------------------------------
+def funcionMultiplo(num):
 
 
  
