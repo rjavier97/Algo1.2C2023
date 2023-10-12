@@ -56,8 +56,8 @@ def contraseña_segura(contraseña: str)->str:
     res : str 
     if (longitud>8 and contiene_mayuscula(contraseña) and contiene_minuscula(contraseña) and (contiene_numero(contraseña))) :
         res = "VERDE"
-    elif (longitud<5):    # ---> Cuidado: Si hubiera escrito acá un if y en la linea63 un else.. (sigue abajo)
-        res = "ROJA"       # ese else se mete dentro del if de linea61. Por lo tanto si el resultado es "VERDE"
+    elif (longitud<5):    # ---> Cuidado: Si hubiera escrito acá un if y en la linea61 un else.. (sigue abajo)
+        res = "ROJA"       # ese else se mete dentro del if de linea59. Por lo tanto si el resultado es "VERDE"
     else :                   # me devolveria erroneamente un "AMARILLA" como resultado. 
         res = "AMARILLA"
     return res     
