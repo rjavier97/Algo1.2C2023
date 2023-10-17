@@ -180,16 +180,160 @@ def vacacionarOTrabajar(sexo:str , edad:int):
 
 # Ejercicio6-------------------------------------------------------------------------------------------------------------------
 # 6.1)-----------------------------------------------------------
+def imprimirDel1Al10()->None:
+    n: int = 1
+    while (n<=10) :
+        print(str(n))
+        n += 1
 
 # 6.2)-----------------------------------------------------------
+def imprimirParesDel10Al40()->None:
+    n: int=10
+    while (n<=40) :
+        print(n)
+        n += 2
 
 # 6.3)-----------------------------------------------------------
-
+def imprimirEco10Veces()->None:
+    n:int = 1
+    while (n<=10) : 
+        print("eco")
+        n+=1
 # 6.4)-----------------------------------------------------------
-
+def cuentaRegresiva(n: int)->None:
+    while (n>=1) :
+        print(n)
+        n -= 1  # esto es igual a hacer n = n - 1
+    print("Despegue")
 # 6.5)-----------------------------------------------------------
-
+def viajeEnElTiempo(añoDePartida: int, añoDeLlegada: int)->None:
+    año: int = añoDePartida
+    while (año>añoDeLlegada) :
+        año -= 1
+        print("Viajó un año al pasado, estamos en el año: "+str(año))
+        
 # 6.6)-----------------------------------------------------------
+def viajeEnElTiempoAC(añoDePartida: int)->None:
+    año: int = añoDePartida - 20
+    while (año>=-384):
+        if (año>=0) :
+            print("Viajó 20 años al pasado, estamos en el año: "+str(año))
+        else: 
+            print("Viajó 20 años al pasado, estamos en el año: "+str(-año)+" a.C.")
+        año -= 20 
+
+# Ejercicio7-------------------------------------------------------------------------------------------------------------------
+# 7.1)-----------------------------------------------------------
+def imprimirDel1Al10For()->None:
+    for i in range(1,11) :
+        print(str(i))
+
+# 7.2)-----------------------------------------------------------
+def imprimirParesDel10Al40For()->None:
+    for i in range(10,41,2) :
+        print(i) 
+# 7.3)-----------------------------------------------------------
+def imprimirEco10VecesFor()->None:
+    for i in range(0,10):
+        print("eco")
+# 7.4)-----------------------------------------------------------
+def cuentaRegresivaFor(n: int)->None:
+    for i in range(n,0,-1) : 
+        print(i)
+    print("Despegue")
+# 7.5)-----------------------------------------------------------
+def viajeEnElTiempoFor(añoDePartida: int, añoDeLlegada: int)->None:
+    for i in range(añoDePartida-1,añoDeLlegada-1,-1):
+        print("Viajó un año al pasado, estamos en el año: "+str(i))
+# 7.6)-----------------------------------------------------------
+def viajeEnElTiempoACFor(añoDePartida: int)->None:
+    for i in range(añoDePartida-20,-394-1,-20):  # hasta lo más cercano al 384 a.C
+        if i>=0 :
+            print("Viajó 20 años al pasado, estamos en el año: "+str(i))
+        else: 
+            print("Viajó 20 años al pasado, estamos en el año: "+str(-i)+" a.C.")
+
+# Ejercicio8-------------------------------------------------------------------------------------------------------------------
+# Realizar la ejecución simbólica de los siguientes códigos:
+# 1) x=5 ; y=7; x=x+y
+# 2) x=5 ; y=7 ; z=x+y; y=z*2
+# 3) x=5 ; y=7 ; x="hora"; y=x*2
+# 4) x=False ; res=not(x)
+# 5) x=True ; y=False ; res= x and y ; x= res and x
+
+# 8.1)-----------------------------------------------------------
+# x=5
+""" Estado1; vale x==5 """
+# y=7
+""" Estado2; vale y==7 ∧ x==x@1 """ ## donde x==x@1=5
+# x=x+y
+""" Estado3; vale x==x@2+y@2 ∧ y==y@2 """ ## donde x==5+7=12 ∧ x@2==5  ∧ y=y@2==7
+
+# 8.2)-----------------------------------------------------------
+# x=5  
+""" Estado1; vale x==5 """
+# y=7 
+""" Estado2; vale y==7 ∧ x==x@1 """ ## donde x==x@1=5
+# z=x+y 
+""" Estado3; vale z==x@2+y@2 ∧ x==x@2 ∧ y==y@2 """ ## donde z==5+7=12  ∧ x==x@2=5 ∧ y==y@2=7
+# y=z*2
+""" Estado4; vale y==z@3 *2 ∧ z==z@3 ∧ x==x@3 """  ## donde y==12*2=24  ∧ z==z@3=12 ∧ x==x@3=5
+
+# 8.3)-----------------------------------------------------------
+# x=5  
+""" Estado1; vale x==5 """
+# y=7
+""" Estado2; vale y==7 ∧ x==x@1"""  ## donde x==x@1=5 
+# x="hora" 
+""" Estado3; vale x=="hora" ∧ y==y@2 """ ## donde y==y@2=7 
+# y=x*2
+""" Estado4; vale y==(x@3)*2  ∧ x==x@3 """ ## donde y=="horahora" ∧ x==x@3="hora"
+
+# 8.4)-----------------------------------------------------------
+# x=False 
+""" Estado1; vale x==False """
+# res=not(x)
+""" Estado2; vale res==not(x@1) ∧ x==x@1 """  ## donde res==True ∧ x==x@1=False 
+
+# 8.5)-----------------------------------------------------------
+# x=True 
+""" Estado1; vale x==True """
+# y=False 
+""" Estado2; vale y==False ∧ x==x@1""" ## donde x==x@1= True
+# res = x and y 
+""" Estado3; vale res==(x@2 and y@2) ∧ x==x@2 ∧ y==y@2 """ ## donde res==(True and False)==False ∧ x==x@2=True ∧ y==y@2=False
+# x = res and x
+""" Estado4; vale x==(res@3 and x@3) ∧ res==res@3 """ ## donde x==(False and True)==False ∧ res==res@3=False ∧ x==x@3=True
+
+# Ejercicio9-------------------------------------------------------------------------------------------------------------------
+# 1. ¿Cuál es el resultado de evaluar tres veces seguidas ro(1)?
+# 2. ¿Cuál es el resultado de evaluar tres veces seguidas rt(1, 0)?
+# 3. En cada función, realizar la ejecución simbólica.
+# 4. Dar la especificación en lenguaje natural para cada función, rt y ro.
+
+# def rt(x: int, g: int) -> int:
+#     g = g + 1
+#     return x + g
+    
+# g: int = 0
+# def ro(x: int) -> int:
+#     global g
+#     g = g + 1
+#     return x + g
+
+
+
+
+
+
+## Ejemplo de la teorica 7
+# def duplicar(x: list, y: list):
+#     print("ANTES:\n x:",x,"\n y:",y)
+#     y = x
+#     y *= 2 
+#     print("DESPUES:\n x:",x,"\n y:",y)
+
+# duplicar(['a','b','c'],['d','e'])
 
 
 
