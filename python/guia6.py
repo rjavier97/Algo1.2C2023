@@ -306,27 +306,62 @@ def viajeEnElTiempoACFor(añoDePartida: int)->None:
 """ Estado4; vale x==(res@3 and x@3) ∧ res==res@3 """ ## donde x==(False and True)==False ∧ res==res@3=False ∧ x==x@3=True
 
 # Ejercicio9-------------------------------------------------------------------------------------------------------------------
-# 1. ¿Cuál es el resultado de evaluar tres veces seguidas ro(1)?
-# 2. ¿Cuál es el resultado de evaluar tres veces seguidas rt(1, 0)?
+# 1. ¿Cuál es el resultado de evaluar tres veces seguidas ro(1)? El resultado es que g=3 y el tercer ro(1) = 4 
+# 2. ¿Cuál es el resultado de evaluar tres veces seguidas rt(1, 0)? 
 # 3. En cada función, realizar la ejecución simbólica.
 # 4. Dar la especificación en lenguaje natural para cada función, rt y ro.
 
-# def rt(x: int, g: int) -> int:
-#     g = g + 1
-#     return x + g
+def rt(x: int, g: int) -> int:   
+    ## Estado1 
+    g = g + 1
+    ## Estado2: vale g==g@1+1  ∧  x==x@1  
+    return x + g
+    ## Estado3: rt(x0,g0) = x@2 + g@2 
     
-# g: int = 0
-# def ro(x: int) -> int:
-#     global g
+g: int = 0
+def ro(x: int) -> int:
+    ## Estado1 
+    global g   
+    ## Estado2: vale g==g@1=0 ∧ x==x@1     
+    g = g + 1
+    ## Estado3: vale g==g@2+1=1 ∧ x==x@2  , donde g@2 = 0 
+    return x + g
+    ## Estado4: vale ro(x0) = x@3 + g@3 , donde g@3 = 1 
+     
+# 9.1)-----------------------------------------------------------
+ro(1)
+# Estado1 vale x=1 
+# Estado2 vale g=0  ## donde g es global
+# Estado3 vale g=1  ## ahora g vale globalmente g=1
+# Estado4 vale ro(1)=2=1+1
+ro(1) 
+# Estado5 vale x=1
+# Estado6 vale g=1   ## donde g es global
+# Estado7 vale g=2   ## ahora g vale globalmente g=2
+# Estado8 vale ro(1)=3=1+2
+ro(1)
+# Estado9 vale x=1
+# Estado10 vale g=2  ## donde g es global
+# Estado11 vale g=3  ## ahora g vale globalmente g=3
+# Estado12 vale ro(1)=4=1+3
+
+# 9.2)-----------------------------------------------------------
+# def rt(x: int, g: int) -> int:   
 #     g = g + 1
 #     return x + g
+## 1ºEjecucion rt(1,0)=2 , 2ºEjecucion rt(1,0)=2 , 3ºEjecucion rt(1,0)=2
+
+# 9.4)-----------------------------------------------------------
+## -- La funcion rt recibe dos parametros x,g enteros, y devuelve la suma de x+g+1 
+## -- La funcion ro recibe un parametro x entero y devuelve la suma de x + g(parametro global) + 1 
+## Si quisiera evaluar ro una vez más, el valor de g seria igual al valor que tomó g en la ejecucion anterior de ro
+## ya que al ser g un parametro global.. 
+## su valor queda guardado y entonces su valor se modifica en la ejecucion del proximo bloque 
+## siempre y cuando se define dentro del bloque de codigo la linea "global g"
 
 
-
-
-
-
-## Ejemplo de la teorica 7
+#------------------------------------------------------------------------------------------------------------
+## Ejemplo de la teorica 7     El resultado de esta ejecucion no coincide con el resultado del pdf 
 # def duplicar(x: list, y: list):
 #     print("ANTES:\n x:",x,"\n y:",y)
 #     y = x
@@ -334,32 +369,3 @@ def viajeEnElTiempoACFor(añoDePartida: int)->None:
 #     print("DESPUES:\n x:",x,"\n y:",y)
 
 # duplicar(['a','b','c'],['d','e'])
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
- 
-    
-
-
-
-
-
-    
-
-
-
-
-
-
-    
