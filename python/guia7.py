@@ -137,6 +137,14 @@ def ordenados(s: [int])->bool:
             res = False 
     return res 
 
+# 1.5)-----------------------------------------------------------
+def palabraMayorA7(lista: [str])->bool:
+    res: bool = False
+    for palabra in lista : 
+        if len(palabra) > 7 :
+            res = True
+    return res 
+
 # 1.7)-----------------------------------------------------------
 # ord("A")=65 , ord("Z")=90 , ord("a")=97 , ord("z")=122
 def contraseña_segura(contraseña: str)->str:
