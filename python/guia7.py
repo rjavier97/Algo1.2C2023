@@ -129,6 +129,14 @@ def suma_total4(s: [int])->int :
         total = total + s[i]
     return total 
 
+# 1.4)-----------------------------------------------------------
+def ordenados(s: [int])->bool:
+    res: bool = True
+    for i in range(len(s) -1) :
+        if (s[i]>=s[i+1]):
+            res = False 
+    return res 
+
 # 1.7)-----------------------------------------------------------
 # ord("A")=65 , ord("Z")=90 , ord("a")=97 , ord("z")=122
 def contraseña_segura(contraseña: str)->str:
