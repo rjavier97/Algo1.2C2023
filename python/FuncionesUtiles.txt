@@ -1,0 +1,8 @@
+--------------------------Funcion Pertenece -------------------------
+Si solo se necesita comprobar si substring es una parte de string, es mejor usar el operador in: 
+>>> 'Py' in 'Python'
+True
+
+--------------------------Funcion Cantidad de Apariciones -------------------------
+s.count(x)
+número total de ocurrencias de x en s

@@ -146,7 +146,8 @@ def palabraMayorA7(lista: [str])->bool:
     return res 
 
 # 1.6)-----------------------------------------------------------
-# def esPalindromo(texto: str)->bool:  ## Usar metodo replace para Strings,recordar que un string no es una lista(eso pasaba en haskell)
+## Usar metodo replace para Strings,recordar que un string no es una lista(eso pasaba en haskell)
+# def esPalindromo(texto: str)->bool:  
 
 ## a.strip()
 
