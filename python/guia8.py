@@ -25,8 +25,8 @@ def generar_nros_al_azar(n: int, desde: int, hasta: int)->Pila:          ## Para
     return pila 
 
 # Ejercicio10-------------------------------------------------------------------------------------------------------------------
-def buscar_el_maximo(p :Pila)->int:
-    res: int 
-    while (not p.empty() ) 
+# def buscar_el_maximo(p :Pila)->int:
+#     res: int 
+#     while (not p.empty() ) 
     
 

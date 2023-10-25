@@ -145,6 +145,11 @@ def palabraMayorA7(lista: [str])->bool:
             res = True
     return res 
 
+# 1.6)-----------------------------------------------------------
+# def esPalindromo(texto: str)->bool:  ## Usar metodo replace para Strings,recordar que un string no es una lista(eso pasaba en haskell)
+
+## a.strip()
+
 # 1.7)-----------------------------------------------------------
 # ord("A")=65 , ord("Z")=90 , ord("a")=97 , ord("z")=122
 def contraseña_segura(contraseña: str)->str:
@@ -180,6 +185,46 @@ def contiene_numero(contraseña: str)->bool:
             res = True
     return res  
 
+# 1.8)-----------------------------------------------------------
+def saldoActual(movimientos: [(str,int)])->int:
+    res: int = 0 
+    for saldo in movimientos :
+        if saldo[0]=='I' :
+            res = res + saldo[1]
+        else : res = res - saldo[1]
+    return res  
+
+# 1.9)-----------------------------------------------------------
+def tiene3VocalesDistintas(palabra: str)->bool:
+    res:bool = False
+    cantVocalesDistintas: int = 0 
+    cantVocalA: int = 0
+    cantVocalE: int = 0 
+    cantVocalI: int = 0
+    cantVocalO: int = 0 
+    cantVocalU: int = 0 
+    indice_actual: int = 0 
+    while (indice_actual < len(palabra) and cantVocalesDistintas<3) :
+        if  palabra[indice_actual]=='a' and cantVocalA==0 :
+            cantVocalA = 1
+            cantVocalesDistintas = cantVocalesDistintas + cantVocalA
+        elif palabra[indice_actual]=='e' and cantVocalE==0 :
+            cantVocalE = 1
+            cantVocalesDistintas = cantVocalesDistintas + cantVocalE
+        elif palabra[indice_actual]=='i' and cantVocalI==0 :
+            cantVocalI = 1
+            cantVocalesDistintas = cantVocalesDistintas + cantVocalI
+        elif palabra[indice_actual]=='o' and cantVocalO==0 :
+            cantVocalO = 1
+            cantVocalesDistintas = cantVocalesDistintas + cantVocalO
+        elif palabra[indice_actual]=='u' and cantVocalU==0 :
+            cantVocalU = 1
+            cantVocalesDistintas = cantVocalesDistintas + cantVocalU
+        indice_actual += 1 
+    if cantVocalesDistintas == 3 :
+        res = True
+    return res 
+     
 # Ejercicio5-------------------------------------------------------------------------------------------------------------------
 # 5.1)-----------------------------------------------------------
 def perteneceACadaUno(s: [[int]], e: int)->bool:
