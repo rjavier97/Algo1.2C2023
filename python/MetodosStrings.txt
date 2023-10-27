@@ -11,6 +11,35 @@ Ejemplo:
 >>> string.rfind('quien')
 94
 
+--------------------------Método str.join(lista) -------------------------
+El método str.join(iterable) es usado para unir todos los elementos de un iterable con un espefico string str in Python. 
+Si, el iterable no contiene ningún valor en los strings, Esto conduce a un TypeError exception.
+>>> ":".join(["freeCodeCamp", "es", "divertido"])
+freeCodeCamp:es:divertido
+>>> "".join(["perro","gato"])
+perrogato
+
+--------------------------Método str.split(sep=None, maxsplit=- 1) -------------------------
+Retorna una lista con las palabras que componen la cadena de caracteres original, usando como separador el valor de sep. 
+Si se utiliza el parámetro maxsplit, se realizan como máximo maxsplit divisiones 
+(por tanto, la lista resultante tendrá maxsplit+1 elementos). 
+Si no se especifica maxsplit o se pasa con valor -1, entonces no hay límite al número de divisiones a realizar 
+(se harán todas las que se puedan).
+El parámetro sep puede contener más de un carácter (por ejemplo, '1<>2<>3'.split('<>') retorna ['1', '2', '3']). 
+Dividir una cadena vacía con un separador determinado retornará [''].
+Ejemplos:
+>>> '1,2,3'.split(',')
+['1', '2', '3']
+>>> '1,2,3'.split(',', maxsplit=1)
+['1', '2,3']
+>>> '1,2,,3,'.split(',')
+['1', '2', '', '3', '']
+
+--------------------------Método list(reversed(a)) -------------------------  when a = una lista
+Ejemplo:
+>>> list(reversed([1,2,3,4,5]))
+[5,4,3,2,1]
+
 --------------------------Método str.isspace() -------------------------
 Retorna True si todos los caracteres de la cadena son espacios en blanco 
 y hay, al menos, un carácter, en caso contrario, retorna False.
@@ -44,26 +73,6 @@ se realizan como máximo maxsplit divisiones, retornando los que están más a l
 Si no se especifica sep o se pasa con valor None, se usa como separador cualquier carácter de espacio en blanco. 
 Si no contamos la diferencia de empezar las divisiones desde la derecha, 
 el comportamiento de este método rsplit() es equivalente al de split(), que se describe con detalle más adelante.
-
---------------------------Método str.split(sep=None, maxsplit=- 1) -------------------------
-Retorna una lista con las palabras que componen la cadena de caracteres original, usando como separador el valor de sep. 
-Si se utiliza el parámetro maxsplit, se realizan como máximo maxsplit divisiones 
-(por tanto, la lista resultante tendrá maxsplit+1 elementos). 
-Si no se especifica maxsplit o se pasa con valor -1, entonces no hay límite al número de divisiones a realizar 
-(se harán todas las que se puedan).
-El parámetro sep puede contener más de un carácter (por ejemplo, '1<>2<>3'.split('<>') retorna ['1', '2', '3']). 
-Dividir una cadena vacía con un separador determinado retornará [''].
-Ejemplos:
->>> '1,2,3'.split(',')
-['1', '2', '3']
->>> '1,2,3'.split(',', maxsplit=1)
-['1', '2,3']
->>> '1,2,,3,'.split(',')
-['1', '2', '', '3', '']
-
-
-
-
 
 --------------------------Método str.islower() -------------------------
 Retorna True si todos los caracteres de la cadena que tengan formas en mayúsculas y minúsculas están en minúsculas 

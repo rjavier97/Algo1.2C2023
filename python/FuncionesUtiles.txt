@@ -6,3 +6,8 @@ True
 --------------------------Funcion Cantidad de Apariciones -------------------------
 s.count(x)
 número total de ocurrencias de x en s
+
+--------------------------Método list(reversed(a)) -------------------------  when a = una lista
+Ejemplo:
+>>> list(reversed([1,2,3,4,5]))
+[5,4,3,2,1]

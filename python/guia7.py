@@ -147,9 +147,15 @@ def palabraMayorA7(lista: [str])->bool:
 
 # 1.6)-----------------------------------------------------------
 ## Usar metodo replace para Strings,recordar que un string no es una lista(eso pasaba en haskell)
-# def esPalindromo(texto: str)->bool:  
-
-## a.strip()
+def esPalindromo(texto: str)->bool: 
+    listaTexto: list[str] = texto.split()    ## Con el metodo split convierto un texto en una lista de palabras
+    textoAplanado: str = ''.join(listaTexto) 
+    textoInverso: str = ''.join(list(reversed(texto)))  ##El método str.join(lista) es usado para unir todos los elementos
+    listaTextoInverso: list[str] = textoInverso.split()  #de una lista con un espefico string str in Python.
+    textoInversoAplanado: str = ''.join(listaTextoInverso)
+    print(texto)
+    res: bool =  textoAplanado.lower() == textoInversoAplanado.lower()  ## con Lower transformo todo el texto en minuscula
+    return res 
 
 # 1.7)-----------------------------------------------------------
 # ord("A")=65 , ord("Z")=90 , ord("a")=97 , ord("z")=122
