@@ -234,8 +234,31 @@ def tiene3VocalesDistintas(palabra: str)->bool:
 
 # Ejercicio2-------------------------------------------------------------------------------------------------------------------
 # 2.1)-----------------------------------------------------------
-def listaPosicionesPares0(lista: [str])->[str]:
-    res : list[str]  
+def listaPosicionesParesInout(lista: [int])->[int]:##La especificacion dice que lista es INOUT, por lo tanto debo modificarla
+    for i in range (0,len(lista),2) :    ## es decir, lista es un parametro de entrada y salida
+        lista[i] = 0                  ## ingreso una lista y devuelvo esa misma lista pero modificada 
+    return lista
+
+# 2.2)-----------------------------------------------------------
+def listaPosicionesParesIn(lista: [int])->[int]:  ##La especificacion dice que lista es IN, por lo tanto no debo modificarla
+    res: list[int] = lista.copy()     ## con el metodo copy() no modifico el parametro lista
+    for i in range (0,len(res),2) :   
+        res[i] = 0 
+    print(lista) ## no hace falta esta linea. Es solo para comprobar que lista != res , y que lista no se modifico 
+    return res   ## probar con este ej: listaPosicionesParesIn([0,1,2,3,4])
+
+# 2.3)-----------------------------------------------------------
+def sinVocalesNiEspacios(cadenaDeChars: [chr])->[chr]:  ## cadenaDeChars es un parametro IN, por lo tanto no lo modifico 
+    res: list[chr] = cadenaDeChars.copy()
+    vocales: list[chr] = ['a','e','i','o','u']
+    for i in range(0, len(cadenaDeChars), 1) : 
+        letra: chr = cadenaDeChars[i]
+        if letra in vocales :
+            res.remove(letra)
+    print(cadenaDeChars)  # no hace falta esta linea.Es solo para comprobar que cadenaDeChars != res , y que cadenaDeChars no se modifico 
+    return res 
+# sinVocalesNiEspacios(['b', 'c', 'd', 'a', 'f', 'e', 'o'])
+
 
 
 # Ejercicio5-------------------------------------------------------------------------------------------------------------------
