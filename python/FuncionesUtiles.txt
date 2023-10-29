@@ -12,7 +12,7 @@ Ejemplo:
 >>> list(reversed([1,2,3,4,5]))
 [5,4,3,2,1]
 
---------------------------Funcion eliminar elem de lista y retornar ese valor -------------------------
+--------------------------Funcion eliminar elem por indice de lista y retornar ese valor -------------------------
 s.pop() o s.pop(i)    ## si se usa s.pop() a continuacion se retorna el ultimo elemento, y se lo elimina de la lista
 Retorna el elemento en la posición indicada por i, y a la vez lo elimina de la secuencia s
 Ejemplo: 
@@ -37,6 +37,17 @@ Ejemplo:
 >>> c.append('f')
 >>> c
 ['b', 'c' , 'd' , 'a', 'f']
+
+---------------------Funcion borrar todos los elementos de una lista  ------------------------------
+s.clear()
+
+------------------Funcion inserta x en s en la posición indicada por el índice i, luego s tiene un elem mas -------------
+s.insert(i, x)
+Ejemplo:
+>>> c = ['a','b','c']
+>>> c.insert(1,'e')
+>>> c
+['a','e','b','c']
 
 
 

@@ -259,6 +259,79 @@ def sinVocalesNiEspacios(cadenaDeChars: [chr])->[chr]:  ## cadenaDeChars es un p
     return res 
 # sinVocalesNiEspacios(['b', 'c', 'd', 'a', 'f', 'e', 'o'])
 
+# 2.4)-----------------------------------------------------------
+def reemplazaVocales(s: [chr])->[chr] :    ## s es un parametro IN
+    res: list[chr] = s.copy()
+    vocales: list[chr] = ['a','e','i','o','u']
+    for i in range(len(s)) :
+        letra:chr = s[i]
+        if letra in vocales :
+            res[i] = '_' 
+    print(s)
+    return res 
+# reemplazaVocales(['b', 'c', 'd', 'a', 'f', 'e', 'o'])
+
+# 2.5)-----------------------------------------------------------
+def daVueltaStr(s: [chr])->[chr] :  ## s es un parametro IN
+    res: list[chr] = s.copy()
+    res = list(reversed(res))
+    # print(s)
+    return res 
+
+def daVueltaStr1(s: [chr])->[chr] :   ## s es un parametro IN
+    res: list[chr] = s.copy()
+    res.clear()
+    for i in range(len(s)-1,-1,-1):
+        letra:chr = s[i]
+        res.append(letra)
+    print(s)
+    return res
+# daVueltaStr1(['a', 'b'])
+        
+# 2.6)-----------------------------------------------------------
+def eliminarRepetidos(s: [chr])->[str]:  ## s es un parametro IN
+    res: list[chr] = s.copy()
+    res = list(reversed(res))
+    for letra in res :
+        cantidadApariciones: int = res.count(letra)
+        if cantidadApariciones > 1 :
+            for i in range (1,cantidadApariciones) :
+                res.remove(letra)
+    print(s)
+    res = list(reversed(res))
+    return res 
+# eliminarRepetidos(['a', 'i', 'b', 'c', 'd', 'e', 'i', 'c'])
+
+# Ejercicio3-------------------------------------------------------------------------------------------------------------------
+def aprobado(listaNotas: [int])->int :
+    sumaTotalNotas: int = 0 
+    todasAprobadas: bool = True
+    res: int 
+    for nota in listaNotas :          ## con este for ya tengo la sumaTotalNotas
+        sumaTotalNotas = sumaTotalNotas + nota
+        if nota >= 4 :
+            todasAprobadas = todasAprobadas and True
+        else : 
+            todasAprobadas = False
+    promedio: int = sumaTotalNotas / len(listaNotas)
+    if todasAprobadas and (promedio>=7) :
+        res = 1
+    elif todasAprobadas and (promedio>=4):
+        res = 2
+    else :
+        res = 3
+    return res 
+    
+# Ejercicio4-------------------------------------------------------------------------------------------------------------------
+# 4.1)-----------------------------------------------------------
+
+
+     
+
+
+
+
+
 
 
 # Ejercicio5-------------------------------------------------------------------------------------------------------------------
