@@ -85,6 +85,9 @@ y hay, al menos, un carácter de ese tipo, en caso contrario, retorna False.
 --------------------------Método str.lower() -------------------------
 Retorna una copia de la cadena de caracteres con todas las letras en minúsculas.
 
+--------------------------Método str.upper() -------------------------
+Retorna una copia de la cadena de caracteres con todas las letras en mayusculas.
+
 --------------------------Método str.replace(old, new[, count]) -------------------------
 Retorna una copia de la cadena con todas las ocurrencias de la cadena old sustituidas por new. 
 Si se utiliza el parámetro count, solo se cambian las primeras count ocurrencias

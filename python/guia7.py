@@ -1,3 +1,4 @@
+import random
 # Ejercicio1-------------------------------------------------------------------------------------------------------------------
 # 1.1)-----------------------------------------------------------
 def pertenece(s: [int], e: int)->bool:       
@@ -324,26 +325,81 @@ def aprobado(listaNotas: [int])->int :
     
 # Ejercicio4-------------------------------------------------------------------------------------------------------------------
 # 4.1)-----------------------------------------------------------
+def listaDeEstudiantes ()->[str]:
+    res: [str] = []
+    nombreEstudiante = input("Ingrese el nombre del estudiante, cuando termine ingrese 'listo': ")
+    while (nombreEstudiante != "listo"):
+        res.append(nombreEstudiante)
+        nombreEstudiante = input("Ingrese el nombre del estudiante: ")
+    return res 
 
+# 4.2)-----------------------------------------------------------
+def historialMonederoElectronico()->[(str,int)]:
+    res: [(str,int)] = []
+    cargarDescontar: str = (input("Ingrese 'C' para cargar créditos, 'D' para descontar créditos o 'X' para terminar: ")).upper()
+    if cargarDescontar == 'X' :
+        res = res
+    else :     ## Input solo puede recibir un argumento, por eso se usa la letra f para poder incluir variables
+        montoDeOperacion: int = int(input(f"Ingrese el monto de la operación {cargarDescontar}: "))
+    while (cargarDescontar != 'X') :
+        res.append((cargarDescontar, montoDeOperacion)) 
+        cargarDescontar: str = (input("Ingrese 'C' para cargar créditos, 'D' para descontar créditos o 'X' para terminar: ")).upper()
+        if cargarDescontar != 'X' :
+            montoDeOperacion: int = int(input(f"Ingrese el monto de la operación {cargarDescontar}: "))
+    print('¡Gracias!')
+    return res 
 
-     
+def historialMonederoElectronico1()->[(str,int)]:
+    res: [(str,int)] = []
+    next: bool = True
+    while (next) :
+        cargarDescontar: str = (input("Ingrese 'C' para cargar créditos, 'D' para descontar créditos o 'X' para terminar: ")).upper()
+        if cargarDescontar != 'X' :
+            montoDeOperacion: int = int(input(f"Ingrese el monto de la operación {cargarDescontar}: "))
+            res.append((cargarDescontar, montoDeOperacion))
+        else :
+            next = False 
+    return res 
 
-
-
-
-
-
+# 4.3)-----------------------------------------------------------
+def juego7ymedio()->[int]:
+    cartas: [int] = [1,2,3,4,5,6,7,10,11,12]
+    sumaTotal: int = 0
+    cartaRandom: int = random.choice(cartas)
+    historialDeCartas: [int] = [cartaRandom]
+    if cartaRandom in [10,11,12] : 
+        sumaTotal = 0.5
+    else : 
+        sumaTotal = cartaRandom
+    next: bool = True
+    print("Bienvenido, su primera carta es: "+str(cartaRandom)) 
+    while (next) :
+        juego: str = input("Si desea sacar otra carta presione 'c', si desea plantarse presione 'x' : ")
+        if juego != 'x' : 
+            cartaRandom = random.choice(cartas)
+            if cartaRandom in [10,11,12] :
+                sumaTotal = sumaTotal + 0.5
+            else: 
+                sumaTotal = sumaTotal + cartaRandom
+            print("Usted ha sacado un",cartaRandom,"y suma hasta ahora:",sumaTotal)
+            if sumaTotal > 7.5 :
+                print("Usted ha perdido")
+                next = False 
+            historialDeCartas.append(cartaRandom)
+        else :
+            next = False
+    return historialDeCartas 
 
 # Ejercicio5-------------------------------------------------------------------------------------------------------------------
 # 5.1)-----------------------------------------------------------
-def perteneceACadaUno(s: [[int]], e: int)->bool:
-    resFinal: bool = True 
+def perteneceACadaUno(s: [[int]], e: int)->[bool]:
+    resFinal:[bool] = [] 
     for elemento in s :
-        resElemento: bool = False
         if pertenece2(elemento, e) : 
-           resElemento = True   
-        resFinal = resFinal and resElemento 
-    return resFinal              
+           resFinal.append(True) 
+        else:
+            resFinal.append(False)    
+    return resFinal                
 
 def perteneceACadaUno1(s: [[int]], e: int)->[bool]:
     resFinal:[bool] = [] 
@@ -355,5 +411,14 @@ def perteneceACadaUno1(s: [[int]], e: int)->[bool]:
     return resFinal              
 
 # print(perteneceACadaUno1([[1,2,3],[4,2,6],[1,8,2]],7))
+
+# def perteneceACadaUnoOtroEj(s: [[int]], e: int)->bool:
+#     resFinal: bool = True 
+#     for elemento in s :
+#         resElemento: bool = False
+#         if pertenece2(elemento, e) : 
+#            resElemento = True   
+#         resFinal = resFinal and resElemento 
+#     return resFinal   
 
 
