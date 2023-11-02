@@ -1,3 +1,5 @@
+from queue import LifoQueue as Pila
+import random 
 # Ejercicio1-------------------------------------------------------------------------------------------------------------------
 # 1.1)-----------------------------------------------------------
 def contarLineas(nombreArchivo : str)->int:
@@ -122,23 +124,77 @@ def promedioEstudiante(nombreArchivo: str, lu: str)->float:
 # promedioEstudiante("ejercicio7.csv", "123/20")
 
 # Ejercicio8-------------------------------------------------------------------------------------------------------------------
+## Metodos de pila: 
+# apilar: ingresa un elemento a la cola: pila.put(elemento) [1]->[1,2]->[1,2,3]
+# desapilar: devuelve y quita el ultimo elemento insertado: pila.get() [1,2,3]->[1,2]->[1]
+# tope: devuelve (sin sacar) el ultimo elemento insertado
+# vacia: retorna verdadero si esta vacia: pila.empty()
 
+def generarNrosAlAzar(n:int, desde:int, hasta:int)->Pila:
+    pila = Pila()
+    for i in range(n) :
+        pila.put(random.randint(desde, hasta))
+    print(pila.queue)
+    return pila 
+# generarNrosAlAzar(4, 1, 8)
 
+# Ejercicio9-------------------------------------------------------------------------------------------------------------------
+def cantidadElementos(p: Pila)->int:
+    lista: [int] = []
+    cantidad: int = 0             # pila = [1,2,3]
+    while not p.empty() :
+       lista.append(p.get())      # lista = [3,2,1]
+       cantidad = cantidad + 1
+    for i in range(len(lista)-1,-1,-1):    # pila=[1] -> pila=[1,2] -> pila=[1,2,3]
+        p.put(lista[i])
+    print(p.queue)
+    return cantidad 
 
+# print(cantidadElementos(generarNrosAlAzar(4,1,6)))
 
+# Ejercicio10-------------------------------------------------------------------------------------------------------------------
+def buscarElMaximo(p: Pila)->int:
+    print(p.queue)
+    maximo: int = p.get()
+    lista: [int] = [maximo] 
+    numero: int = 0
+    while not p.empty() :
+        numero = p.get()
+        lista.append(numero)
+        if numero > maximo :
+            maximo = numero 
+    for i in range(len(lista)-1,-1,-1):
+        p.put(lista[i])
+    print(p.queue)
+    return maximo
+# print(buscarElMaximo(generarNrosAlAzar(0,1,7)))            
 
+# Ejercicio11-------------------------------------------------------------------------------------------------------------------
+# def esta_bien_balanceada(s:str)->bool:
 
-
-
-
-
-
-            
-
-        
-
-
-
-
- 
-
+# Ejercicio12-------------------------------------------------------------------------------------------------------------------
+def evaluar_expresion(expresion: str)->int:
+    pila = Pila()
+    operadores: [str] = ['+', '-', '*', '/']
+    listaTokens = expresion.split(' ')
+    res: int = 0 
+    for token in listaTokens :
+        if  not (token in operadores) :
+            pila.put(int(token))
+        elif token == '+' :
+            res = pila.get() + pila.get()
+            pila.put(res)
+        elif token == '-' : 
+            ultimoNumero = pila.get()
+            res = pila.get() - ultimoNumero
+            pila.put(res)
+        elif token == '*' :
+            res = pila.get() * pila.get()
+            pila.put(res)
+        elif token == '/' :
+            ultimoNumero = pila.get()
+            res = pila.get() / ultimoNumero
+            pila.put(res)
+    print(pila.queue)
+    return pila.get()
+# print(evaluar_expresion("3 4 - 5 * 4 /"))
