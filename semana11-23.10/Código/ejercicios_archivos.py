@@ -5,8 +5,9 @@ def clonar_sin_comentarios(nombre_archivo : str):
     arch_sin_comentarios = open("clonadoSinComentarios.py", "w")
     # Leo todas las líneas
     lineas = archivo.readlines()
+    print(lineas)
     for linea in lineas:
-        # Si no una línea NO comienza con # entonces la escribo
+        # Si una línea NO comienza con # entonces la escribo
         # if not linea.lstrip().startswith("#"):
         if not linea.strip()[0] == "#":
             arch_sin_comentarios.write(linea)
