@@ -1,4 +1,5 @@
-from queue import LifoQueue as Pila
+from queue import LifoQueue as Pila, Queue as Cola
+# from queue import Queue as Cola
 import random 
 # Ejercicio1-------------------------------------------------------------------------------------------------------------------
 # 1.1)-----------------------------------------------------------
@@ -139,7 +140,8 @@ def generarNrosAlAzar(n:int, desde:int, hasta:int)->Pila:
 # generarNrosAlAzar(4, 1, 8)
 
 # Ejercicio9-------------------------------------------------------------------------------------------------------------------
-def cantidadElementos(p: Pila)->int:
+def cantidad_elementosPila(p: Pila)->int:
+    print(p.queue)
     lista: [int] = []
     cantidad: int = 0             # pila = [1,2,3]
     while not p.empty() :
@@ -198,3 +200,174 @@ def evaluar_expresion(expresion: str)->int:
     print(pila.queue)
     return pila.get()
 # print(evaluar_expresion("3 4 - 5 * 4 /"))
+
+# Ejercicio13-------------------------------------------------------------------------------------------------------------------
+def colaDeEnteros(pila: Pila)->Cola:
+    cola = Cola()
+    while not pila.empty() :
+        cola.put(pila.get())
+    print(cola.queue)
+    return cola 
+# colaDeEnteros(generarNrosAlAzar(4,1,6))
+
+# Ejercicio14-------------------------------------------------------------------------------------------------------------------
+def cantidad_elementosCola(cola: Cola)->int:
+    print(cola.queue)
+    lista:[int] = []
+    cantidad: int = 0
+    while not cola.empty() :
+        lista.append(cola.get())
+        cantidad +=1 
+    for num in lista :
+        cola.put(num)
+    print(cola.queue)
+    return cantidad
+
+# Ejercicio15-------------------------------------------------------------------------------------------------------------------
+def buscar_el_maximo(c: Cola)->int:
+    maximo: int = c.get()
+    caux: Cola = Cola()
+    caux.put(maximo)
+    while not c.empty():
+        elemento = c.get()
+        caux.put(elemento)
+        if elemento > maximo :
+            maximo = elemento 
+    while not caux.empty():
+        c.put(caux.get())
+    return maximo     
+
+# Ejercicio16-------------------------------------------------------------------------------------------------------------------
+# 16.1)-----------------------------------------------------------
+def armar_secuencia_de_bingo()->Cola:
+    cola: Cola = Cola()
+    listaNrosDe0a99: [int] = list(range(0,100))  ## lista de nros del 0 al 99 
+    while len(listaNrosDe0a99) != 0 :          ## mientras la lista no sea vacia
+        numero: int = random.choice(listaNrosDe0a99)   ## elijo un nro del 0 al 99 al azar de la lista 
+        cola.put(numero)     ## ese nro al azar lo agrego a la cola
+        listaNrosDe0a99.remove(numero)  ## ese nro lo elimino de la lista de nros del 0 al 99 
+    print(cola.queue)
+    return cola 
+
+# 16.2)-----------------------------------------------------------
+def jugar_carton_de_bingo(carton: [int], bolillero: Cola)-> int:
+    cartonaux: [int] = carton.copy()
+    bolilleroaux: Cola = Cola()
+    print('cartonIN :',carton)
+    print('bolilleroIN :',bolillero.queue)
+    cantidadJugadas : int = 0 
+    while cartonaux != []:
+        numero: int = bolillero.get()
+        bolilleroaux.put(numero)
+        if numero in cartonaux :
+            cartonaux.remove(numero)
+        cantidadJugadas += 1
+    print('cartonOUT: ',carton)
+    while not bolillero.empty() :
+        bolilleroaux.put(bolillero.get())
+    bolillero = bolilleroaux
+    print('bolilleroOUT :',bolillero.queue)    
+    return cantidadJugadas 
+    
+# Ejercicio17-------------------------------------------------------------------------------------------------------------------
+def n_pacientes_urgentes(c: Cola((int,str,str)) )-> int:
+    print('cIN :',c.queue)
+    print('cIN :', c)
+    pacientesUrgentes: int = 0
+    caux: Cola((int,str,str)) = Cola()
+    while not c.empty() :
+        elemento: (int,str,str) = c.get()
+        caux.put(elemento)
+        if elemento[0] <= 3 :
+            pacientesUrgentes += 1
+    while not caux.empty() :        ## aca empiezo a restaurar el parametro 'c' de entrada, para que a la salida no se modifique 
+        c.put(caux.get())
+    print('cOUT :',c.queue)
+    print('cOUT :',c)
+    return pacientesUrgentes 
+
+# Ejercicio18-------------------------------------------------------------------------------------------------------------------
+def a_clientes(c: Cola((str,int,bool,bool)))->Cola((str,int,bool,bool)): ## a = <queue.Queue object at 0x0000024E818798E0>
+    ## ('Javier Suarez', 40851203, True, False), ('Mario Gomez', 40820432, True, True), ('Jose Lopez', 40678123, False, False), 
+    # ('Mirta Legrand', 10345123, False, True), ('German Cano', 50678123, True, False), ('Sergio Massa', 34512234, True, True)
+    print('cIn :',c.queue)
+    caux: Cola((str,int,bool,bool)) = Cola()
+    colaPrioridad1: Cola((str,int,bool,bool)) = Cola()
+    colaPrioridad2: Cola((str,int,bool,bool)) = Cola()
+    colaResto: Cola((str,int,bool, bool)) = Cola()
+    colaOrdenada: Cola((str,int,bool,bool)) = Cola()
+    while not c.empty() :
+        persona: (str,int,bool,bool) = c.get() 
+        caux.put(persona)
+        if persona[3] :            ## Si es una persona con Prioridad 1, se agrega a la Cola de Prioridad 1
+            colaPrioridad1.put(persona)
+        elif persona[2] :       ## Si es una persona con Prioridad 2, se agrega a la Cola de Prioridad 2 
+            colaPrioridad2.put(persona)
+        else :         ## Si la persona no tenia ninguna prioridad, la agrego a una Cola del Resto de personas 
+            colaResto.put(persona)  
+    while not colaPrioridad1.empty() :   ## Aca paso las personas con prioridad 1 a la Cola Ordenada
+        colaOrdenada.put(colaPrioridad1.get())
+    while not colaPrioridad2.empty() :   ## Aca paso las personas con prioridad 2 a la Cola Ordenada
+        colaOrdenada.put(colaPrioridad2.get()) 
+    while not colaResto.empty() :   ## Aca paso las personas que no tenian ninguna prioridad a la Cola Ordenada
+        colaOrdenada.put(colaResto.get())
+    while not caux.empty() :         ## Aca restauro el parametro c: IN, para que a la salida no se modifique
+        c.put(caux.get())
+    print('cOUT :',c.queue)
+    print('colaOrdenada :',colaOrdenada.queue)
+    return colaOrdenada 
+
+# Ejercicio19------------------------------------------------------------------------------------------------------------------
+
+
+
+# Ejercicio20------------------------------------------------------------------------------------------------------------------
+
+
+# Ejercicio21------------------------------------------------------------------------------------------------------------------
+
+
+
+# Ejercicio22------------------------------------------------------------------------------------------------------------------
+# 22.1)-----------------------------------------------------------
+
+
+
+# 22.2)-----------------------------------------------------------
+
+
+
+# 22.3)-----------------------------------------------------------
+
+
+
+# 22.4)-----------------------------------------------------------
+
+
+
+
+
+
+# Ejercicio23------------------------------------------------------------------------------------------------------------------
+# 23.1)-----------------------------------------------------------
+
+
+
+# 23.2)-----------------------------------------------------------
+
+
+
+# 23.3)-----------------------------------------------------------
+
+
+
+# 23.4)-----------------------------------------------------------
+
+
+
+
+    
+
+    
+
+
