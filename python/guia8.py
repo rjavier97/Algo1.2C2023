@@ -318,15 +318,79 @@ def a_clientes(c: Cola((str,int,bool,bool)))->Cola((str,int,bool,bool)): ## a = 
     return colaOrdenada 
 
 # Ejercicio19------------------------------------------------------------------------------------------------------------------
-
-
+def agrupar_por_longitud(nombreArchivo: str)->dict:
+    archivo = open(nombreArchivo, 'r', encoding='utf-8')
+    contenido = archivo.read().lower()
+    archivo.close()
+    sinSaltosDelinea: str = contenido.replace('\n', ' ').replace(',','')
+    print(sinSaltosDelinea)
+    listaPalabras: [str] = sinSaltosDelinea.split()
+    print(listaPalabras)
+    dict = {}
+    for palabra in listaPalabras :  ## en este for creo el diccionario solucion pero desordenado
+        longitud_en_letras = len(palabra)
+        if not longitud_en_letras in dict :
+            dict[longitud_en_letras]=1
+        else : dict[longitud_en_letras] = dict[longitud_en_letras] + 1
+    print(dict) ## {7: 3, 5: 3}
+    diccionarioOrd = {}
+    for i in range(len(dict)) :      ## en este for ordeno el diccionario solucion de menor a mayor 
+        minimo = min(dict.keys())
+        diccionarioOrd[minimo]=dict[minimo]
+        del(dict[minimo])
+    print(diccionarioOrd)
+    return diccionarioOrd
+# agrupar_por_longitud('ejercicio5.txt')
 
 # Ejercicio20------------------------------------------------------------------------------------------------------------------
+def promedioDeTodosLosEstudiantes(nombreArchivo: str)->dict:
+    archivo = open("ejercicio7.csv", 'r', encoding='utf-8')
+    contenido = archivo.read()
+    print(contenido)
+    lineas = contenido.split('\n')
+    print(lineas)
+    dict = {}
+    for i in range(len(lineas)) :
+        lista: [str,str,str,float] = lineas[i].replace(' ','').split(',')
+        if not lista[0] in dict :
+            dict[lista[0]] = int(lista[3])
+        else : 
+            dict[lista[0]] = dict[lista[0]] + int(lista[3]) 
+    print(dict)
+    for i in range(len(dict)) :
+        libretaUniversitaria = list(dict.keys())[i]
+        cantidadNotas: int = contenido.count(libretaUniversitaria)
+        dict[libretaUniversitaria] = dict[libretaUniversitaria] / cantidadNotas
+    print(dict)
+    archivo.close()
+    return dict
 
+# promedioEstudiante("ejercicio7.csv", "123/20")
 
 # Ejercicio21------------------------------------------------------------------------------------------------------------------
-
-
+def la_palabra_mas_frecuente(nombre_archivo: str)->str:
+    archivo = open(nombre_archivo, 'r', encoding='utf-8')
+    contenido = archivo.read()
+    print(contenido)
+    textoSinSaltosDeLinea = contenido.replace('\n', ' ').replace(',','').lower()
+    print(textoSinSaltosDeLinea)
+    listaPalabras = textoSinSaltosDeLinea.split()
+    print(listaPalabras)
+    dict = {}
+    while listaPalabras != [] :
+        apariciones = listaPalabras.count(listaPalabras[0])
+        dict[listaPalabras[0]] = apariciones
+        listaPalabras = (' '.join(listaPalabras).replace(listaPalabras[0],'')).split()
+    print(dict)
+    palabraFrecuente : str
+    maximo = max(dict.values())
+    print(maximo)
+    for clave in dict :
+        if dict[clave] == maximo :
+            palabraFrecuente = clave 
+    print (palabraFrecuente)
+    return palabraFrecuente
+# la_palabra_mas_frecuente('ejercicio5.txt')
 
 # Ejercicio22------------------------------------------------------------------------------------------------------------------
 # 22.1)-----------------------------------------------------------
